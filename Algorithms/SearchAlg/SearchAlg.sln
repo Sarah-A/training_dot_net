@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchAlg", "SearchAlg\SearchAlg.csproj", "{2BA3985F-1AC7-4A89-A26E-B4C44C5A4C29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UT_SearchAlgs", "UT_SearchAlgs\UT_SearchAlgs.csproj", "{F11CDE8C-FF51-4519-9B76-29A8BDE2F687}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BA3985F-1AC7-4A89-A26E-B4C44C5A4C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BA3985F-1AC7-4A89-A26E-B4C44C5A4C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BA3985F-1AC7-4A89-A26E-B4C44C5A4C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BA3985F-1AC7-4A89-A26E-B4C44C5A4C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F11CDE8C-FF51-4519-9B76-29A8BDE2F687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F11CDE8C-FF51-4519-9B76-29A8BDE2F687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F11CDE8C-FF51-4519-9B76-29A8BDE2F687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F11CDE8C-FF51-4519-9B76-29A8BDE2F687}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

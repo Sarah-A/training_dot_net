@@ -1,0 +1,72 @@
+public class CityCollection : IEnumerable<string> 
+{ 
+	string[] m_Cities = {"New York","Paris","London"}; 
+	
+	IEnumerator<string> IEnumerable<string>.GetEnumerator() 
+	{ 
+		return new MyEnumerator(this); 
+	} 
+	
+	IEnumerator IEnumerable.GetEnumerator() 
+	{ 
+		return ((IEnumerable<string>)this).GetEnumerator(); 
+	} 
+	
+	//Nested class definition 
+	class MyEnumerator : IEnumerator<string> 
+	{ 
+		CityCollection m_Collection; 
+		int m_Current; 
+		
+		public MyEnumerator(CityCollection collection) 
+		{ 
+			m_Collection = collection; 
+			m_Current = -1; 
+		} 
+		
+		void IEnumerator.Reset() 
+		{ 
+			m_Current = -1; 
+		} 
+		
+		bool IEnumerator.MoveNext() 
+		{ 
+			m_Current++; 
+			return(m_Current < m_Collection.m_Cities.Length); 
+		} 
+		
+		string IEnumerator<string>.Current 
+		{ 
+			get { if(m_Current == -1) throw new InvalidOperationException(); 
+					return m_Collection.m_Cities[m_Current]; 
+				} 
+		} 
+		
+		object IEnumerator.Current 
+		{ 
+			get { 
+					return ((IEnumerator<string>)this).Current; 
+				} 
+		} 
+		
+		public void Dispose() {} 
+	} 
+}
+
+
+
+public class CityCollection : IEnumerable<string> 
+{ 
+	string[] m_Cities = {"New York","Paris","London"}; 
+	
+	IEnumerator<string> IEnumerable<string>.GetEnumerator() 
+	{ 
+		for(int i = 0; i<m_Cities.Length; i++) 
+			yield return m_Cities[i]; 
+	} 
+	
+	IEnumerator IEnumerable.GetEnumerator() 
+	{ 
+		return ((IEnumerable<string>)this)GetEnumerator(); 
+	} 
+}
