@@ -11,16 +11,19 @@ namespace AspDotNetCourseApp.Controllers
    
     public class MoviesController : Controller
     {
-        private List<Movie> Movies { set; get; } = new List<Movie> {
-                new Movie() {Name = "Shrek 1"},
-                new Movie() {Name = "Shrek 2"},
-                new Movie() {Name = "Shrek 3"},
-        };
+        private List<Movie> GetMovies()
+        {
+            return new List<Movie> {
+                new Movie() {Name = "Shrek 1", Id = 1},
+                new Movie() {Name = "Shrek 2", Id = 2},
+                new Movie() {Name = "Shrek 3", Id = 3}
+            };
+        }
 
         // GET: Movies
         public ActionResult Index()
         {
-            return View(Movies);          
+            return View(GetMovies());          
         }
 
         // Example for using View to send the model (Movie) to the view:
@@ -72,9 +75,24 @@ namespace AspDotNetCourseApp.Controllers
             return Content($"year: {year} , month: {month}");
         }
 
+        [Route("movies/details/{id}")]
+        public ActionResult Details(int id)
+        {
+            var movie = GetMovies().SingleOrDefault(m => m.Id == id);
 
-        
-        
+            if (movie == null)
+            {
+                return Content($"Movie ID: ${id} not found!");
+            }
+            else
+            {
+                return View(movie);
+            }
+        }
+
+
+
+
 
     }
 }

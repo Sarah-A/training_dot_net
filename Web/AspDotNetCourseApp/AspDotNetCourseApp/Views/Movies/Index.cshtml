@@ -12,11 +12,17 @@
 else
 {
 	<h2>Movies:</h2>
-	<ul>
-		@foreach (var customer in Model)
+	<div class="list-group">
+		@foreach(var movie in Model)
 		{
-			<li>@customer.Name</li>
+			@Html.ActionLink(movie.Name,
+							"Details",
+							"Movies",
+							new { id = movie.Id },
+							new { @class="list-group-item list-group-item-action"}
+			)
+			
 		}
-	</ul>
+	</div>
 }
 

@@ -9,15 +9,34 @@ namespace AspDotNetCourseApp.Controllers
 {
     public class CustomersController : Controller
     {
-        private List<Customer> Customers { get; set; } = new List<Customer> { 
-            new Customer() { Name = "Customer 1"},
-            new Customer() { Name = "Customer 2"}
-        };
+
+        private List<Customer> GetCustomers()
+        {
+            return new List<Customer> {
+            new Customer() { Name = "Customer 1", Id = 1},
+            new Customer() { Name = "Customer 2", Id = 2}
+            };
+        }
 
         // GET: Customers
         public ActionResult Index()
         {            
-            return View(Customers);
+            return View(GetCustomers());
+        }
+
+        [Route("customers/details/{id}")]
+        public ActionResult Details(int id)
+        {
+            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
+            {
+                return Content($"Customer id ${id} not found!");
+            }
+            else
+            {
+                return View(customer);
+            }
         }
     }
 }
