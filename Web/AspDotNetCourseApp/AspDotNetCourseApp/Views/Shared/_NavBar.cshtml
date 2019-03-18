@@ -6,11 +6,14 @@
 				</button>
                 @Html.ActionLink("The Movies Index", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-link">@Html.ActionLink("Movies", "Index", "Movies")</li>
-                    <li class="nav-link">@Html.ActionLink("Customers", "Index", "Customers")</li>                    
-                </ul>
-            </div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav mr-auto">
+					<li class="nav-link">@Html.ActionLink("Movies", "Index", "Movies")</li>
+					<li class="nav-link">@Html.ActionLink("Customers", "Index", "Customers")</li>
+				</ul>
+				<div>
+					@Html.Partial("_LoginPartial")
+				</div>
+			</div>
         </div>
     </div>
