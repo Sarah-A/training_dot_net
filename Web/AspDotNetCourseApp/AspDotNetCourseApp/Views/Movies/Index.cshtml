@@ -11,18 +11,32 @@
 }
 else
 {
-	<h2>Movies:</h2>
-	<div class="list-group">
+	<table class="table">
+		<caption>Movies</caption>
+		<thead>
+			<tr>
+				<th scope="col">Movie</th>
+				<th scope="col">Genre</th>
+			</tr>
+		</thead>
+		<tbody>
 		@foreach(var movie in Model)
 		{
-			@Html.ActionLink(movie.Name,
-							"Details",
-							"Movies",
-							new { id = movie.Id },
-							new { @class="list-group-item list-group-item-action"}
-			)
-			
+			<tr>
+				<td>
+					@Html.ActionLink(movie.Name,
+									"Details",
+									"Movies",
+									new { id = movie.Id },
+									new { @class="list-group-item list-group-item-action border-0"}
+					)
+				</td>
+				<td>
+					@movie.Genre.Name
+				</td>			
+			</tr>
 		}
-	</div>
+		</tbody>
+	</table>
 }
 

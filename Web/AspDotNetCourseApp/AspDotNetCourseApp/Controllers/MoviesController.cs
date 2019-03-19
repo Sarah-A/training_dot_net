@@ -5,19 +5,29 @@ using System.Web;
 using System.Web.Mvc;
 using AspDotNetCourseApp.Models;
 using AspDotNetCourseApp.ViewModels;
+using System.Data.Entity;
 
 namespace AspDotNetCourseApp.Controllers
 {
    
     public class MoviesController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+            base.Dispose(disposing);
+        }
+
         private List<Movie> GetMovies()
         {
-            return new List<Movie> {
-                new Movie() {Name = "Shrek 1", Id = 1},
-                new Movie() {Name = "Shrek 2", Id = 2},
-                new Movie() {Name = "Shrek 3", Id = 3}
-            };
+            return _context.Movies.Include(m => m.Genre).ToList();
         }
 
         // GET: Movies
