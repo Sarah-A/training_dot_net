@@ -15,7 +15,10 @@ namespace AspDotNetCourseApp.Models
         public string Name { get; set; }
 
         public DateTime? Birthdate { get; set; }
+
+        [Display(Name="Subscribed to Newsletter?")]
         public bool IsSubscribedToNewsletter { get; set; }
+
         public MembershipType MembershipType { get; set; }
         public byte MembershipTypeId { get; set; }
     }
