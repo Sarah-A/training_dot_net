@@ -1,4 +1,4 @@
-﻿@model AspDotNetCourseApp.Models.Customer
+﻿@model AspDotNetCourseApp.ViewModels.NewCustomerViewModel
 
 @{
 	/**/
@@ -12,16 +12,24 @@
 @using (Html.BeginForm("Create", "Customers"))
 {
 	<div class="form-group">
-		@Html.LabelFor(c => c.Name)
-		@Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+		@Html.LabelFor(m => m.Customer.Name)
+		@Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
 	</div>
 	<div class="form-group">
-		@Html.LabelFor(c => c.Birthdate)
-		@Html.TextBoxFor(c => c.Birthdate, new { @class = "form-control" })
+		@Html.LabelFor(m => m.Customer.Birthdate)
+		@Html.TextBoxFor(m => m.Customer.Birthdate, new { @class = "form-control" })
 	</div>
 	<div class="form-check">
-		@Html.CheckBoxFor(c => c.IsSubscribedToNewsletter, new { @class = "form-check-input" })
-		@Html.LabelFor(c => c.IsSubscribedToNewsletter)
+		@Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter, new { @class = "form-check-input" })
+		@Html.LabelFor(m => m.Customer.IsSubscribedToNewsletter)
 	</div>
+	<div class="form-group">
+		@Html.LabelFor(m => m.Customer.MembershipTypeId)
+		@Html.DropDownListFor(m => m.Customer.MembershipTypeId,
+							  new SelectList(Model.MembershipTypes, "Id", "Name"),
+							  "Select Membership Type",
+							  new { @class="form-control" })
+	</div>
+
 }
 

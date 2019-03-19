@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using AspDotNetCourseApp.Models;
 using System.Data.Entity;
+using AspDotNetCourseApp.Models;
+using AspDotNetCourseApp.ViewModels;
 
 
 namespace AspDotNetCourseApp.Controllers
@@ -58,7 +59,12 @@ namespace AspDotNetCourseApp.Controllers
 
         public ActionResult New()
         {
-            return View();
+            var newCustomerViewModel = new NewCustomerViewModel()
+            {
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+
+            return View(newCustomerViewModel);
         }
     }
 }
