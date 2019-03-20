@@ -5,6 +5,10 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="row my-3 justify-content-end">
+	<button class="btn btn-outline-primary" onclick="location.href='@Url.Action("New", "Customers")'">Add New Customer</button>
+</div>
+
 @if (Model.Count == 0)
 {
 	<text>No Customers in the system!</text>
@@ -12,7 +16,6 @@
 else
 {
 	<table class="table">
-	<caption>List of Customers</caption>
 		<thead>
 			<tr>
 				<th scope="col">Name</th>

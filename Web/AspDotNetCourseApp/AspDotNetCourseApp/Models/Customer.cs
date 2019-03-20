@@ -11,7 +11,7 @@ namespace AspDotNetCourseApp.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(255, MinimumLength = 2)]
         public string Name { get; set; }
 
         public DateTime? Birthdate { get; set; }
@@ -21,6 +21,7 @@ namespace AspDotNetCourseApp.Models
 
         public MembershipType MembershipType { get; set; }
 
+        [Required]
         [Display(Name="Membership Type")]
         public byte MembershipTypeId { get; set; }
     }

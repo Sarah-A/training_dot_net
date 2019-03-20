@@ -66,5 +66,21 @@ namespace AspDotNetCourseApp.Controllers
 
             return View(newCustomerViewModel);
         }
+
+        //[HttpPost]
+        public ActionResult Create(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Customers.Add(customer);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Customers");
+            }
+            else
+            {
+                return RedirectToAction("New", "Customers");
+            }
+        }
     }
 }
