@@ -100,6 +100,27 @@ namespace AspDotNetCourseApp.Controllers
             }
         }
 
+        public ActionResult MovieForm()
+        {
+            var viewModel = new MovieFormViewModel()
+            {
+                Genres = _context.Genres.ToList()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Movie movie)
+        {
+            if (movie.Id == 0)
+            {
+                _context.Movies.Add(movie);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
+
 
 
 
