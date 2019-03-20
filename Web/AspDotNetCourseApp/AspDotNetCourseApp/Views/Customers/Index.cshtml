@@ -6,7 +6,7 @@
 }
 
 <div class="row my-3 justify-content-end">
-	<button class="btn btn-outline-primary" onclick="location.href='@Url.Action("CustomerForm", "Customers")'">Add New Customer</button>
+	<a role="button" href=@Url.Action("CustomerForm", "Customers") class="btn btn-outline-primary">Add New Customer</a>
 </div>
 
 @if (Model.Count == 0)
