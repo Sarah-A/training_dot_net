@@ -116,5 +116,28 @@ namespace AspDotNetCourseApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }
+
+        [HttpPost]
+        public ActionResult Save(Customer customer)
+        {
+            if (customer.Id == 0)
+            {
+                _context.Customers.Add(customer);
+            }
+            else
+            {
+                var customerInDb = GetCustomers().Single(c => c.Id == customer.Id);
+
+                customerInDb.Name = customer.Name;
+                customerInDb.Birthdate = customer.Birthdate;
+                customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Customers");
+
+        }
     }
 }

@@ -8,17 +8,17 @@
 }
 
 @{
-	var formAction = "Create";
+	var formHeading = "New Customer";
 	if (Model.Customer != null)
 	{
-		formAction = "Update";
+		formHeading = $"Update Customer: {Model.Customer.Name}";
 	}
 }
 
-<h2>@formAction Customer</h2>
+<h2>@formHeading</h2>
 
 
-@using (Html.BeginForm(formAction, "Customers"))
+@using (Html.BeginForm("Save", "Customers"))
 {
 	<div class="form-group">
 		@Html.LabelFor(m => m.Customer.Name)
