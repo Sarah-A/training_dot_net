@@ -73,11 +73,7 @@ namespace AspDotNetCourseApp.Controllers
 
             return View(moviesRandom);
         }
-
-        public ActionResult Edit(int id)
-        {
-            return Content($"id={id}");
-        }
+               
 
         [Route("movies/releases/{year:regex(\\d{4}):range(1900,2019)}/{month:regex(\\d{1-2}):range(1,12)}")]
         public ActionResult ByReleaseDate(int year, int month)
@@ -117,8 +113,31 @@ namespace AspDotNetCourseApp.Controllers
             {
                 _context.Movies.Add(movie);
             }
+            else
+            {
+                var movieInDb = GetMovies().Single(m => m.Id == movie.Id);
+                movieInDb.Name = movie.Name;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.GenreId = movie.GenreId;
+                movieInDb.NumberInStock = movie.NumberInStock;
+            }
             _context.SaveChanges();
             return RedirectToAction("Index", "Movies");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var movie = GetMovies().SingleOrDefault(m => m.Id == id);
+            if(movie == null)
+            {
+                return Content($"Movie: {id} Could not be found!!");
+            }
+            var viewModel = new MovieFormViewModel()
+            {
+                Movie = movie,
+                Genres = _context.Genres
+            };
+            return View("MovieForm", viewModel);
         }
 
 
