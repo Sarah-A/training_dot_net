@@ -6,7 +6,7 @@ using AspDotNetCourseApp.Models;
 
 namespace AspDotNetCourseApp.ViewModels
 {
-    public class NewCustomerViewModel
+    public class CustomerFormViewModel
     {
         public  Customer Customer { get; set; }
         public  IEnumerable<MembershipType> MembershipTypes { get; set; }

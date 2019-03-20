@@ -57,17 +57,37 @@ namespace AspDotNetCourseApp.Controllers
             }
         }
 
-        public ActionResult New()
+        public ActionResult Edit(int id)
         {
-            var newCustomerViewModel = new NewCustomerViewModel()
-            {
-                MembershipTypes = _context.MembershipTypes.ToList()
-            };
+            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
 
-            return View(newCustomerViewModel);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                var viewModel = new CustomerFormViewModel()
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes
+                };
+
+                return View("CustomerForm", viewModel);
+            }
         }
 
-        //[HttpPost]
+        public ActionResult CustomerForm()
+        {
+            var viewModel = new CustomerFormViewModel()
+            {
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };       
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
         public ActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
@@ -79,8 +99,22 @@ namespace AspDotNetCourseApp.Controllers
             }
             else
             {
-                return RedirectToAction("New", "Customers");
+                return RedirectToAction("CustomerForm", "Customers");
             }
+        }
+
+        [HttpPost]
+        public ActionResult Update(Customer customer)
+        {            
+            var customerInDb = GetCustomers().Single(c => c.Id == customer.Id);
+
+            customerInDb.Name = customer.Name;
+            customerInDb.Birthdate = customer.Birthdate;
+            customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            customerInDb.MembershipTypeId = customer.MembershipTypeId;
+
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Customers");
         }
     }
 }
