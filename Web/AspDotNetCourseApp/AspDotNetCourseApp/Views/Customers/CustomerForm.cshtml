@@ -7,19 +7,13 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{
-	var formHeading = "New Customer";
-	if (Model.Customer != null)
-	{
-		formHeading = $"Update Customer: {Model.Customer.Name}";
-	}
-}
-
-<h2>@formHeading</h2>
+<h2>Customer Form</h2>
 
 
 @using (Html.BeginForm("Save", "Customers"))
 {
+	@Html.ValidationSummary(true, "Please fix the following errors:")
+
 	<div class="form-group">
 		@Html.LabelFor(m => m.Customer.Name)
 		@Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
