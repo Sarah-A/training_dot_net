@@ -100,6 +100,7 @@ namespace AspDotNetCourseApp.Controllers
         {
             var viewModel = new MovieFormViewModel()
             {
+                Movie = new Movie(),
                 Genres = _context.Genres.ToList()
             };
 
