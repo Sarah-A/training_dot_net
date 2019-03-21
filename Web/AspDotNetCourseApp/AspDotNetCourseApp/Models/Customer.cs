@@ -11,11 +11,11 @@ namespace AspDotNetCourseApp.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(255, MinimumLength = 2)]
+        [StringLength(255,MinimumLength = 2)]
         public string Name { get; set; }
 
         public DateTime? Birthdate { get; set; }
-
+        
         [Display(Name="Subscribed to Newsletter?")]
         public bool IsSubscribedToNewsletter { get; set; }
 
@@ -23,6 +23,7 @@ namespace AspDotNetCourseApp.Models
 
         [Required]
         [Display(Name="Membership Type")]
+        [CustomValidation_Min18YearsForMembership]
         public byte MembershipTypeId { get; set; }
     }
 }
