@@ -99,8 +99,7 @@ namespace AspDotNetCourseApp.Controllers
         public ActionResult MovieForm()
         {
             var viewModel = new MovieFormViewModel()
-            {
-                Movie = new Movie(),
+            {                
                 Genres = _context.Genres.ToList()
             };
 
@@ -113,9 +112,8 @@ namespace AspDotNetCourseApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new MovieFormViewModel()
+                var viewModel = new MovieFormViewModel(movie)
                 {
-                    Movie = movie,
                     Genres = _context.Genres
                 };
                 return View("MovieForm", viewModel);
@@ -144,9 +142,8 @@ namespace AspDotNetCourseApp.Controllers
             {
                 return Content($"Movie: {id} Could not be found!!");
             }
-            var viewModel = new MovieFormViewModel()
+            var viewModel = new MovieFormViewModel(movie)
             {
-                Movie = movie,
                 Genres = _context.Genres
             };
             return View("MovieForm", viewModel);
