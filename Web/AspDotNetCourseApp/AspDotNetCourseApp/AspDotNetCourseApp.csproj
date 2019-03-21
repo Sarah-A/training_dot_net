@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201903202124541_UpdateMovieTypes.Designer.cs">
       <DependentUpon>201903202124541_UpdateMovieTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903210130075_ChangeMembershipAndGenresTypesIdToEnum.cs" />
+    <Compile Include="Migrations\201903210130075_ChangeMembershipAndGenresTypesIdToEnum.Designer.cs">
+      <DependentUpon>201903210130075_ChangeMembershipAndGenresTypesIdToEnum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -404,6 +408,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903202124541_UpdateMovieTypes.resx">
       <DependentUpon>201903202124541_UpdateMovieTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903210130075_ChangeMembershipAndGenresTypesIdToEnum.resx">
+      <DependentUpon>201903210130075_ChangeMembershipAndGenresTypesIdToEnum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AspDotNetCourseApp.Models
 {
-    public enum MembershipTypes : byte
+    public enum MembershipTypeIds : byte
     {
         Unknown = 0,
         PayAsYouGo,
@@ -16,7 +16,7 @@ namespace AspDotNetCourseApp.Models
 
     public class MembershipType
     {
-        public byte Id { get; set; }
+        public MembershipTypeIds Id { get; set; }
         public string Name { get; set; }
         public short SignUpFee { get; set; }
         public byte DurationInMonths { get; set; }

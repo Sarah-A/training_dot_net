@@ -24,6 +24,6 @@ namespace AspDotNetCourseApp.Models
         [Required]
         [Display(Name="Membership Type")]
         [CustomValidation_Min18YearsForMembership]
-        public byte MembershipTypeId { get; set; }
+        public MembershipTypeIds MembershipTypeId { get; set; }
     }
 }

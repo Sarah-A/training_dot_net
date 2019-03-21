@@ -13,7 +13,7 @@ namespace AspDotNetCourseApp.Models
         {
             var customer = (Customer)validationContext.ObjectInstance;
 
-            if (customer.MembershipTypeId == 1)
+            if (customer.MembershipTypeId == MembershipTypeIds.PayAsYouGo)
             {
                 return ValidationResult.Success;
             }

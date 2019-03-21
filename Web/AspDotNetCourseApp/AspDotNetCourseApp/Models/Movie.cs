@@ -22,7 +22,7 @@ namespace AspDotNetCourseApp.Models
         
         [Required]
         [Display(Name="Genre")]
-        public byte GenreId { get; set; }
+        public GenreTypeIds GenreId { get; set; }
         public Genre Genre { get; set; }
 
         [Required]        
