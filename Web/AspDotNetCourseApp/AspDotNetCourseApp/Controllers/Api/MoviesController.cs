@@ -25,6 +25,11 @@ namespace AspDotNetCourseApp.Controllers.Api
             base.Dispose(disposing);    
         }
 
+        private Movie GetMovieInDb(int id)
+        {
+            return _context.Movies.SingleOrDefault(m => m.Id == id);
+        }
+
         // GET api/movies
         public IHttpActionResult GetMovies()
         {
@@ -34,7 +39,7 @@ namespace AspDotNetCourseApp.Controllers.Api
         // GET api/movies/{id}
         public IHttpActionResult GetMovie(int id)
         {
-            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+            var movie = GetMovieInDb(id);
 
             if (movie == null)
             {
@@ -72,7 +77,7 @@ namespace AspDotNetCourseApp.Controllers.Api
                 return BadRequest();
             }
 
-            var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
+            var movieInDb = GetMovieInDb(id);
             if (movieInDb == null)
             {
                 return NotFound();
@@ -89,8 +94,8 @@ namespace AspDotNetCourseApp.Controllers.Api
         [HttpDelete]
         public IHttpActionResult DeleteMovie(int id)
         {
-            var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
-            if (movieInDb == null)
+            var movieInDb = GetMovieInDb(id);
+            if( movieInDb == null )
             {
                 return NotFound();
             }

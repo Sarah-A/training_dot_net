@@ -75,16 +75,21 @@ namespace AspDotNetCourseApp.Controllers.Api
                 return BadRequest();
             }
 
-            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customerInDb = GetCustomerInDb(id);
             if (customerInDb == null)
             {
                 return NotFound();
             }
-                        
+
             Mapper.Map(customerDto, customerInDb);
 
             _context.SaveChanges();
             return Ok();
+        }
+
+        private Customer GetCustomerInDb(int id)
+        {
+            return _context.Customers.SingleOrDefault(c => c.Id == id);
         }
 
         // DELETE /api/customers/{id}
