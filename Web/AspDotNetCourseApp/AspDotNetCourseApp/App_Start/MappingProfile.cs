@@ -12,7 +12,8 @@ namespace AspDotNetCourseApp.App_Start
     {
         public MappingProfile()
         {
-            CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>();
+            CreateMap<CustomerDto, Customer>().ForMember(c => c.Id, opt => opt.Ignore());
         }
     }
 }
