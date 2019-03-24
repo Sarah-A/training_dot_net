@@ -14,6 +14,8 @@ namespace AspDotNetCourseApp.App_Start
         {
             CreateMap<Customer, CustomerDto>();
             CreateMap<CustomerDto, Customer>().ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<Movie, MovieDto>();
+            CreateMap<MovieDto, Movie>().ForMember(m => m.Id, opt => opt.Ignore());
         }
     }
 }
