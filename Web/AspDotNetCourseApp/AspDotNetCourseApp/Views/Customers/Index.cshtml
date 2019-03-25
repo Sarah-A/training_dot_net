@@ -25,7 +25,7 @@ else
 		<tbody>
 			@foreach (var customer in Model)
 			{
-				<tr>
+				<tr class="tr-customer">
 					<td>
 						@Html.ActionLink(customer.Name,
 										"Edit",
@@ -57,13 +57,16 @@ else
 					method: "DELETE"
 				})
 				.done(function () {
-					btnElement.parents("tr").remove();
+					btnElement.parents(".tr-customer").remove();
 				});
 			}
 		}
 
 		$(document).ready(function () {
-			$("#customers .js-delete").on("click", function() {				
+			// Setting the handler on the parent instead of on the buttons themselfs improve performance
+			// and footprint since there will only be one handler. If the selector is true, the callback function
+			// will be called.
+			$("#customers").on("click",".js-delete", function() {				
 				onDeleteMovie($(this));
 			});
 		});
