@@ -51,15 +51,17 @@ else
 	<script>
 
 		function onDeleteMovie(btnElement) {
-			if (confirm("Are you sure you want to delete this customer?")) {
-				$.ajax({
-					url: "/api/customers/" + btnElement.attr("data-customer-id"),
-					method: "DELETE"
-				})
-				.done(function () {
-					btnElement.parents(".tr-customer").remove();
-				});
-			}
+			bootbox.confirm("Are you sure you want to delete this customer?", (result) => {
+				if (result) {
+					$.ajax({
+						url: "/api/customers/" + btnElement.attr("data-customer-id"),
+						method: "DELETE"
+					})
+						.done(function () {
+							btnElement.parents(".tr-customer").remove();
+						});
+				}
+			});
 		}
 
 		$(document).ready(function () {
