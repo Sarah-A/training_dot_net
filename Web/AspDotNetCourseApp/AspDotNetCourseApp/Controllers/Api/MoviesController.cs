@@ -7,6 +7,7 @@ using System.Web.Http;
 using AutoMapper;
 using AspDotNetCourseApp.Models;
 using AspDotNetCourseApp.Dtos;
+using System.Data.Entity;
 
 namespace AspDotNetCourseApp.Controllers.Api
 {
@@ -26,14 +27,18 @@ namespace AspDotNetCourseApp.Controllers.Api
         }
 
         private Movie GetMovieInDb(int id)
-        {
+        {            
             return _context.Movies.SingleOrDefault(m => m.Id == id);
         }
 
         // GET api/movies
         public IHttpActionResult GetMovies()
         {
-            return Ok(_context.Movies.Select(Mapper.Map<MovieDto>));
+            var moviesDtos = _context.Movies
+                                .Include(m => m.Genre)
+                                .ToList()
+                                .Select(Mapper.Map<MovieDto>);
+            return Ok(moviesDtos);
         }
 
         // GET api/movies/{id}

@@ -23,6 +23,8 @@ namespace AspDotNetCourseApp.Dtos
         [Display(Name = "Genre")]
         public GenreTypeIds GenreId { get; set; }
 
+        public GenreDto Genre{ get; set; }
+
         [Required]
         [Display(Name = "Number In Stock")]
         [Range(1, 20)]
