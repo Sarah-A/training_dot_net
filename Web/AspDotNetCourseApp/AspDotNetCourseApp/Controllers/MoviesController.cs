@@ -33,7 +33,7 @@ namespace AspDotNetCourseApp.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            return View(GetMovies());          
+            return View();          
         }
 
         // Example for using View to send the model (Movie) to the view:
