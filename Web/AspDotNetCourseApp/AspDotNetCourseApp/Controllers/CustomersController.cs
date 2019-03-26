@@ -39,7 +39,7 @@ namespace AspDotNetCourseApp.Controllers
         // GET: Customers
         public ActionResult Index()
         {            
-            return View(GetCustomers());
+            return View();
         }
 
         [Route("customers/details/{id}")]

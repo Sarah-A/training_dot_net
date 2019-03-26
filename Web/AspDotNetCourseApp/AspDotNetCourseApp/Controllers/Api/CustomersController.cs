@@ -29,7 +29,7 @@ namespace AspDotNetCourseApp.Controllers.Api
         // GET /api/customers
         public IHttpActionResult GetCustomers()
         {
-            return Ok(_context.Customers.Select(Mapper.Map<CustomerDto>));
+            return Ok(_context.Customers.ToList().Select(Mapper.Map<CustomerDto>));
         }
 
         // GET /api/customers/{id}

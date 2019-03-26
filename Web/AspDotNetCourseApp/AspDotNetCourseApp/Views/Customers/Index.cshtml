@@ -9,43 +9,18 @@
 	<a role="button" href=@Url.Action("CustomerForm", "Customers") class="btn btn-outline-primary">Add New Customer</a>
 </div>
 
-@if (Model.Count == 0)
-{
-	<text>No Customers in the system!</text>
-}
-else
-{
-	<table id="customers" class="table">
-		<thead>
-			<tr>
-				<th scope="col">Name</th>
-				<th scope="col">Membership Type</th>
-				<th scope="col">Delete</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var customer in Model)
-			{
-				<tr class="tr-customer">
-					<td>
-						@Html.ActionLink(customer.Name,
-										"Edit",
-										"Customers",
-										new { id = customer.Id },
-										new { @class="list-group-item list-group-item-action border-0"}
-						)
-					</td>
-					<td>
-						@customer.MembershipType.Name
-					</td>
-					<td>
-						<button class="btn btn-link js-delete" data-customer-id="@customer.Id">Delete</button>
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
-}
+<table id="customers" class="table">
+	<thead>
+		<tr>
+			<th scope="col">Name</th>
+			<th scope="col">Membership Type</th>
+			<th scope="col">Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		@* We don't need to render the table rows here since DataTable is doing this automatically. *@
+	</tbody>
+</table>
 
 @section scripts
 {
@@ -66,7 +41,30 @@ else
 		}
 
 		$(document).ready(function () {
-			$("#customers").DataTable();
+			$("#customers").DataTable({
+				ajax: {
+					url: "/api/customers",
+					dataSrc: "",
+				},
+				columns: [
+					{
+						data: "name",
+						render: function (data, type, customer) {
+							return `<a href="/customers/edit/${customer.id}">${data}</a>`;
+						}
+					},
+					{
+						data: "name",
+						render: () => "<p>TODO</p>"						
+					},
+					{
+						data: "id",
+						render: function (data) {
+							return `<button class="btn btn-link js-delete" data-customer-id=${data}>Delete</button>`;
+						}
+					}
+				]
+			});
 
 			// Setting the handler on the parent instead of on the buttons themselfs improve performance
 			// and footprint since there will only be one handler. If the selector is true, the callback function
