@@ -16,6 +16,7 @@
 		<tr>
 			<th scope="col">Movie</th>
 			<th scope="col">Genre</th>
+			<th scope="col">Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,6 +29,24 @@
 @section scripts  
 {
 	<script>
+
+		function onDeleteMovie(table, btnElement) {
+			bootbox.confirm("Are you sure you want to delte this movie?", function (result) {
+				if (result) {
+					let movieId = btnElement.attr("data-movie-id");
+					let movieRow = btnElement.parents("tr");
+					$.ajax({
+						url: `/api/movies/${movieId}`,
+						method: "DELETE"
+					})
+						.done(function () {
+							table.row(movieRow).remove().draw();
+						});
+				}
+			});
+		}
+
+
 		$(document).ready(function () {
 			let table = $("#movies").DataTable({
 				ajax: {
@@ -43,9 +62,19 @@
 					},
 					{
 						data: "genre.name"
+					},
+					{
+						data: "id",
+						render: function (data) {
+							return `<button class="btn btn-link js-delete" data-movie-id=${data}>Delete</button>`;
+						}
 					}
 				]
 
+			});
+
+			$("#movies").on("click",".js-delete", function () {
+				onDeleteMovie(table, $(this));
 			});
 		});
 
