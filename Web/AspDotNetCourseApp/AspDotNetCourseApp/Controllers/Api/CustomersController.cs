@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using AspDotNetCourseApp.Models;
 using AspDotNetCourseApp.Dtos;
+using System.Data.Entity;
 using AutoMapper;
 
 namespace AspDotNetCourseApp.Controllers.Api
@@ -28,8 +29,13 @@ namespace AspDotNetCourseApp.Controllers.Api
 
         // GET /api/customers
         public IHttpActionResult GetCustomers()
-        {
-            return Ok(_context.Customers.ToList().Select(Mapper.Map<CustomerDto>));
+        {            
+            var customersInDbDtos = _context.Customers
+                                    .Include( m => m.MembershipType )
+                                    .ToList()
+                                    .Select(Mapper.Map<CustomerDto>);
+
+            return Ok(customersInDbDtos);
         }
 
         // GET /api/customers/{id}

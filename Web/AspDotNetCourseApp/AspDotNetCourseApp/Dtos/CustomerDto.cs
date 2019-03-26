@@ -30,5 +30,7 @@ namespace AspDotNetCourseApp.Dtos
         [Display(Name = "Membership Type")]
         //[CustomValidation_Min18YearsForMembership]
         public MembershipTypeIds MembershipTypeId { get; set; }
+
+        public MembershipTypeDto MembershipType { get; set; }
     }
 }
