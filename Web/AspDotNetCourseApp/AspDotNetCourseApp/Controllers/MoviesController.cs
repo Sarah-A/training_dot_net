@@ -9,7 +9,7 @@ using System.Data.Entity;
 
 namespace AspDotNetCourseApp.Controllers
 {
-   
+    [Authorize(Roles ="CanManageMovies")]
     public class MoviesController : Controller
     {
         private ApplicationDbContext _context;

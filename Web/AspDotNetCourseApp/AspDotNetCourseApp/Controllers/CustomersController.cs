@@ -10,6 +10,7 @@ using AspDotNetCourseApp.ViewModels;
 
 namespace AspDotNetCourseApp.Controllers
 {
+    [Authorize(Roles =RoleNames.Admin)]
     public class CustomersController : Controller
     {
         // in order to be able to query the database in the CustomersController, we need
