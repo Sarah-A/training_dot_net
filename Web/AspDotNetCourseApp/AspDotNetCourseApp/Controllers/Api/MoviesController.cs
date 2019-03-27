@@ -55,6 +55,7 @@ namespace AspDotNetCourseApp.Controllers.Api
         }
 
         // POST api/movies
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpPost]
         public IHttpActionResult PostMovie(MovieDto movieDto)
         {
@@ -74,6 +75,7 @@ namespace AspDotNetCourseApp.Controllers.Api
         }
 
         // PUSH api/movies/{id}
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpPut]
         public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
@@ -96,6 +98,7 @@ namespace AspDotNetCourseApp.Controllers.Api
 
 
         // DELETE api/movies/{id}
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpDelete]
         public IHttpActionResult DeleteMovie(int id)
         {

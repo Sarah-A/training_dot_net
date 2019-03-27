@@ -32,12 +32,17 @@ namespace AspDotNetCourseApp.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-			return View();
-		
-         }
-            
-       
+            if (User.IsInRole(RoleNames.Admin))
+            {
+                return View("List");
+            }
+            else
+            {
+                return View("ReadOnlyList");
+            }
+        }
         
+        [Authorize(Roles = RoleNames.Admin)]
         public ActionResult MovieForm()
         {
             var viewModel = new MovieFormViewModel()
@@ -48,6 +53,7 @@ namespace AspDotNetCourseApp.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
@@ -77,6 +83,7 @@ namespace AspDotNetCourseApp.Controllers
             return RedirectToAction("Index", "Movies");
         }
 
+        [Authorize(Roles = RoleNames.Admin)]
         public ActionResult Edit(int id)
         {
             var movie = GetMovies().SingleOrDefault(m => m.Id == id);
