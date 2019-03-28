@@ -38,8 +38,17 @@ namespace AspDotNetCourseApp.Controllers
 
         // GET: Customers
         public ActionResult Index()
-        {            
-            return View();
+        {
+            // Using Lazy Loading - will send one query to get all customers and then additional up to N queries to get all 
+            // MembershipTypes refered to be these customers => might lead to the N+1 issue, where N is the number of MembershipTypes:
+            // When testing with Glimpse - for 8 customers with 3 membership types - sent 4 queries (with 2 database access) and took a total of 54.2 ms
+            var customers = _context.Customers.ToList();
+
+            // Using Eager Loading - will get the memebership type as part of the original query so we'll have less queries: 
+            // When testing with Glimpe - for 8 customers with 3 membership types - sent one query with INNER JOIN which was extremely slow and took 57.84 ms
+            //var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+            return View(customers);
+            
         }
 
         [Route("customers/details/{id}")]
