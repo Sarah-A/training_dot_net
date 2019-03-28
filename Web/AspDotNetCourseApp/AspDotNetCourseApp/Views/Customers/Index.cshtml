@@ -9,16 +9,6 @@
 	<a role="button" href=@Url.Action("CustomerForm", "Customers") class="btn btn-outline-primary">Add New Customer</a>
 </div>
 
-<h2>Customers:</h2>
-@{
-<ul>
-	@foreach (var customer in Model)
-	{
-		<li>Custoemr: @customer.Name , Membership: @customer.MembershipType.Name</li>
-	}
-</ul>
-}
-
 <table id="customers" class="table">
 	<thead>
 		<tr>

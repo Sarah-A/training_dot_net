@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using AspDotNetCourseApp.Models;
 using AspDotNetCourseApp.ViewModels;
-using System.Runtime.Caching;
 
 
 namespace AspDotNetCourseApp.Controllers
@@ -39,13 +38,8 @@ namespace AspDotNetCourseApp.Controllers
 
         // GET: Customers
         public ActionResult Index()
-        {
-            if (MemoryCache.Default["Customers"] == null)
-            {
-                MemoryCache.Default["Customers"] = _context.Customers.Include(c => c.MembershipType).ToList();
-            }
-            var customers = MemoryCache.Default["Customers"] as IEnumerable<Customer>;
-            return View(customers);
+        {            
+            return View();
         }
 
         [Route("customers/details/{id}")]
