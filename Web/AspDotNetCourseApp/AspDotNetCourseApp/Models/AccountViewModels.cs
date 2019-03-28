@@ -12,6 +12,11 @@ namespace AspDotNetCourseApp.Models
         [Required]
         [Display(Name = "Driving License")]
         public string DrivingLicense { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Phone Number")]
+        public string Phone { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -87,6 +92,11 @@ namespace AspDotNetCourseApp.Models
         [Required]
         [Display(Name = "Driving License")]
         public string DrivingLicense { get; set; }
+
+        [Required]
+        [Display(Name = "Phone Number")]
+        [StringLength(50)]
+        public string Phone { get; set; }
     }
 
     public class ResetPasswordViewModel

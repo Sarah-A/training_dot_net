@@ -295,6 +295,14 @@
     <Compile Include="Migrations\201903270434394_AddDrivingLicenseToApplicationUser.Designer.cs">
       <DependentUpon>201903270434394_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903280020422_AddPhoneToApplicationUser.cs" />
+    <Compile Include="Migrations\201903280020422_AddPhoneToApplicationUser.Designer.cs">
+      <DependentUpon>201903280020422_AddPhoneToApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903280026104_ChangePhoneMaxLengthInApplicationUser.cs" />
+    <Compile Include="Migrations\201903280026104_ChangePhoneMaxLengthInApplicationUser.Designer.cs">
+      <DependentUpon>201903280026104_ChangePhoneMaxLengthInApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -689,6 +697,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903270434394_AddDrivingLicenseToApplicationUser.resx">
       <DependentUpon>201903270434394_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903280020422_AddPhoneToApplicationUser.resx">
+      <DependentUpon>201903280020422_AddPhoneToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903280026104_ChangePhoneMaxLengthInApplicationUser.resx">
+      <DependentUpon>201903280026104_ChangePhoneMaxLengthInApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
