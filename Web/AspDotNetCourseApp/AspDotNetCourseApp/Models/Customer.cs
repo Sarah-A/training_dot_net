@@ -19,7 +19,7 @@ namespace AspDotNetCourseApp.Models
         [Display(Name="Subscribed to Newsletter?")]
         public bool IsSubscribedToNewsletter { get; set; }
 
-        public virtual MembershipType MembershipType { get; set; }
+        public MembershipType MembershipType { get; set; }
 
         [Required]
         [Display(Name="Membership Type")]
