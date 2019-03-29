@@ -49,7 +49,8 @@ namespace AspDotNetCourseApp.Controllers.Api
             var customer = _context.Customers.Single(c => c.Id == rentalDto.CustomerId);
             
             var movies = _context.Movies
-                                 .Where(m => rentalDto.MovieIds.Contains(m.Id));
+                                 .Where(m => (rentalDto.MovieIds.Contains(m.Id) &&
+                                             m.NumberAvailable > 0));
 
             foreach (var movie in movies)
             {               
@@ -61,6 +62,7 @@ namespace AspDotNetCourseApp.Controllers.Api
                 };
 
                 _context.Rentals.Add(rental);
+                movie.NumberAvailable--;                
             }
 
             _context.SaveChanges();

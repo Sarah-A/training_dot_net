@@ -70,6 +70,7 @@ namespace AspDotNetCourseApp.Controllers
             if (movie.Id == 0)
             {
                 _context.Movies.Add(movie);
+                movie.NumberAvailable = movie.NumberInStock;
             }
             else
             {
@@ -78,6 +79,7 @@ namespace AspDotNetCourseApp.Controllers
                 movieInDb.ReleaseDate = movie.ReleaseDate;
                 movieInDb.GenreId = movie.GenreId;
                 movieInDb.NumberInStock = movie.NumberInStock;
+                movieInDb.NumberAvailable = movie.NumberAvailable;
             }
             _context.SaveChanges();
             return RedirectToAction("Index", "Movies");
