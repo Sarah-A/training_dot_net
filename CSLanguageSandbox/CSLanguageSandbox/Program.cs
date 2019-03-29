@@ -17,7 +17,7 @@ namespace CSLanguageSandbox
 
             foreach(Animal animal in animals)
             {
-                animal.PrintName();
+                animal.GetHello();
             }
         }
 

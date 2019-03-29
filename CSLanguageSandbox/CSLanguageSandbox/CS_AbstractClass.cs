@@ -11,9 +11,9 @@ namespace CSLanguageSandbox
         protected string name_;
         public Animal(string name) => name_ = name;
 
-        public virtual void PrintName()
+        public virtual string GetHello()
         {
-            Console.WriteLine("I'm an animal: {0}", name_);
+           return ("I'm an animal. My Name is: " + name_);
         }
 
     }
@@ -22,9 +22,9 @@ namespace CSLanguageSandbox
     {
         public Cat(string name) : base(name) { }
 
-        public override void PrintName()
+        public override string GetHello()
         {
-            Console.WriteLine("I'm a cat: {0}", name_);
+            return ("I'm a cat. My Name is: " + name_);
         }
     }
 
@@ -32,9 +32,10 @@ namespace CSLanguageSandbox
     {
         public Dog(string name) : base(name) { }
 
-        public override void PrintName()
+        public override string GetHello()
         {
-            Console.WriteLine("I'm a dog: {0}", name_);
+            return ("I'm a dog. My Name is: " + name_);
         }
     }
+       
 }

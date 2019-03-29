@@ -48,6 +48,7 @@
     <Compile Include="CodeWarsKatas.cs" />
     <Compile Include="CS_AbstractClass.cs" />
     <Compile Include="CS_Async.cs" />
+    <Compile Include="CS_BoxingPerformance.cs" />
     <Compile Include="CS_CompositionVsAggregation.cs" />
     <Compile Include="CS_Delegates_Simple.cs" />
     <Compile Include="CS_Events_WithAnonymousMethods.cs" />
