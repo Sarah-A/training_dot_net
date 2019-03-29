@@ -43,17 +43,26 @@ namespace AspDotNetCourseApp.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            // Note: we use Single and not SingleOrDefault here since the user will pick up the 
-            // customer from a list so we don't expect this to fail. Exception will be thrown if 
-            // it does fail which is the correct way to handle unexpected fails.
-            var customer = _context.Customers.Single(c => c.Id == rentalDto.CustomerId);
-            
+            if (rentalDto.MovieIds.Count == 0)
+                return BadRequest("No Movies Ids in Request");
+
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == rentalDto.CustomerId);
+            if (customer == null)
+                return BadRequest("Customer Id Not Found");
+
             var movies = _context.Movies
-                                 .Where(m => (rentalDto.MovieIds.Contains(m.Id) &&
-                                             m.NumberAvailable > 0));
+                                 .Where(m => (rentalDto.MovieIds.Contains(m.Id))).ToList();
+
+            if (movies.Count != rentalDto.MovieIds.Count)
+                return BadRequest("One or more movieIds are invalid.");
 
             foreach (var movie in movies)
-            {               
+            {
+                if (movie.NumberAvailable == 0)
+                    return BadRequest($"Movie {movie.Name} is unavailable");
+
+                movie.NumberAvailable--;                
+
                 var rental = new Rental()
                 {
                     Customer = customer,
@@ -62,7 +71,6 @@ namespace AspDotNetCourseApp.Controllers.Api
                 };
 
                 _context.Rentals.Add(rental);
-                movie.NumberAvailable--;                
             }
 
             _context.SaveChanges();
