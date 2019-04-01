@@ -100,11 +100,11 @@
 					method: "POST",
 					data: vm
 				})
-				.done(function () {
-					console.log("New Rental Created!!");
+					.done(function () {
+						toastr.success("Rental Created Successfully!!");
 					})
-				.fail(function () {
-					console.log("Failed");
+					.fail(function () {
+						toastr.error("Failed to create new rental!!");
 				});
 			});
 
