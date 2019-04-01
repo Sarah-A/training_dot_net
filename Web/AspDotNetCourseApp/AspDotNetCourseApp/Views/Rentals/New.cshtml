@@ -1,7 +1,7 @@
 ﻿
 @{
-    ViewBag.Title = "New";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "New";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>New Rental Form</h2>
@@ -10,18 +10,18 @@
 	<div class="form-group">
 		<label for="customer">Customer</label>
 		<div class="tt-container">
-			<input type="text" id="customer" value="" class="form-control" />			
+			<input type="text" id="customer" name="customer" data-rule-validCustomer="true" value="" class="form-control" required/>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label for="movie">Movie</label>
 		<div class="tt-container">
-			<input type="text" id="movie" value="" class="form-control" />
+			<input type="text" id="movie" name="movie" data-rule-atLeastOneMovie="true" value="" class="form-control" />
 		</div>
 	</div>
 
-	<ul id="movies" class="list-group"></ul>
+	<ul id="movies"  class="list-group"></ul>
 
 	<button type="submit" class="btn btn-primary">Submit</button>
 
@@ -29,22 +29,24 @@
 
 @section scripts
 {
+	@Scripts.Render("~/bundles/jqueryval")
+
 	<script>
 		$(document).ready(function () {
 			var vm = {
 				movieIds: []
 			};
 
-			// Bloodhound is the 
+			// Bloodhound is the
 			var customers = new Bloodhound({
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),	// tokenize customer.Name
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				remote: {
 					url: '../api/customers?filterForRenting=%QUERY',		// the user input will be put into $QUERY
-					wildcard: '%QUERY'					
+					wildcard: '%QUERY'
 				}
 			});
-			
+
 			$('#customer')
 				.typeahead({
 					minLength: 3,
@@ -60,7 +62,7 @@
 					//console.log(`${customer.name} - ${customer.id}`);
 				});
 
-			// Bloodhound is the 
+			// Bloodhound is the
 			var movies = new Bloodhound({
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),	// tokenize movie.Name
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -69,7 +71,7 @@
 					wildcard: '%QUERY'
 				}
 			});
-			
+
 			$('#movie')
 				.typeahead({
 					minLength: 3,
@@ -87,26 +89,53 @@
 					// clear the content of the text box after the selection.
 					// we need to use typeahead isntead of the jquery .val() function since typeahead is
 					// now controling the text box value:
-					$("#movie").typeahead("val", "");				
+					$("#movie").typeahead("val", "");
 
-					
+
 				});
 
-			$("#newRental").submit(function (e) {
-				e.preventDefault();			// to prevent the form sending a regular HTML submit
+			$.validator.addMethod("atLeastOneMovie", function () {
+				return vm.movieIds.length > 0;
+			}, "Please select at least one movie to rent");
 
-				$.ajax({
-					url: "/api/Rentals",
-					method: "POST",
-					data: vm
-				})
-					.done(function () {
-						toastr.success("Rental Created Successfully!!");
+			// custom validator for the #customer field. We plug it into the html by using the 
+			// data-rule-<function name>="true" attribute on the text box. This tells JQuery to 
+			// run this function in order to validate this field.
+			$.validator.addMethod("validCustomer", function () {
+				return vm.customerId && vm.customerId != 0;
+			}, "Please select a valid customer.");
+
+			// plug validation into the form:
+			let validator = $("#newRental").validate({
+				submitHandler: function () {
+
+					$.ajax({
+						url: "/api/Rentals",
+						method: "POST",
+						data: vm
 					})
-					.fail(function () {
-						toastr.error("Failed to create new rental!!");
-				});
+						.done(function () {
+							toastr.success("Rental Created Successfully!!");
+
+							// reset form:
+							$("#customer").typeahead("val", "");
+							$("#movie").typeahead("val", "");
+							$("#movies").empty();
+							vm = { movieIds: [] };
+							validator.resetForm();
+
+						})
+						.fail(function () {
+							toastr.error("Failed to create new rental!!");
+						});
+
+					// to prevent JQuery from sumbitting the form again
+					// (already submitted through the ajax call):
+					return false;
+				}
 			});
+
+			
 
 		});
 	</script>

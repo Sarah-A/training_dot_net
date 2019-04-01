@@ -25,10 +25,13 @@ textarea {
 
 
 /* Style validation error-messages text: */
-.validation-summary-errors, .field-validation-error {
+.validation-summary-errors, 
+.field-validation-error,
+label.error {
 	color: red;
 }
 
-.input-validation-error {
+.input-validation-error,
+input.error {
 	border: 2px solid red;
 }
