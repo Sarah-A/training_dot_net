@@ -13,7 +13,8 @@ namespace AspDotNetCourseApp
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootbox.js",
                         "~/Scripts/DataTables/jquery.dataTables.js",
-                        "~/Scripts/DataTables/dataTables.bootstrap4.js"));
+                        "~/Scripts/DataTables/dataTables.bootstrap4.js",
+                        "~/Scripts/typeahead.bundle.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -28,6 +29,7 @@ namespace AspDotNetCourseApp
                       "~/Content/bootstrap-cerulean.css",
                       "~/Content/site.css",
                       "~/Content/DataTables/css/jquery.dataTables.css",
+                      "~/Content/typeahead.css",
                       "~/Content/DataTables/css/dataTables.bootstrap4.css"));
         }
     }

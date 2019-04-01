@@ -37,6 +37,7 @@ namespace AspDotNetCourseApp.Controllers.Api
 
             return Ok(customersInDbDtos);
         }
+                
 
         // GET /api/customers/{id}
         public IHttpActionResult GetCustomer(int id)

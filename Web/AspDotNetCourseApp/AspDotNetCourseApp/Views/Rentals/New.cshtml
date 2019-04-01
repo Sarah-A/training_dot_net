@@ -17,8 +17,79 @@
 		<input type="text" id="movie" value="" class="form-control" />
 	</div>
 
+	<ul id="movies" class="list-group"></ul>
+
 	<button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
+
+@section scripts
+{
+	<script>
+		$(document).ready(function () {
+			var vm = {
+				moviesIds: []
+			};
+
+			// Bloodhound is the 
+			var customers = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),	// tokenize customer.Name
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				remote: {
+					url: '../api/customers?query=%QUERY',		// the user input will be put into $QUERY
+					wildcard: '%QUERY'					
+				}
+			});
+			
+			$('#customer')
+				.typeahead({
+					minLength: 3,
+					highlight: true
+				},
+					{
+						name: 'customers',			//
+						display: 'name',			// will display customer.name in the suggestion list
+						source: customers			// the new Bloodhound object defined at the top.
+					})
+				.on("typeahead:select", function (e, customer) {
+					vm.customerId = customer.id;
+					//console.log(`${customer.name} - ${customer.id}`);
+				});
+
+			// Bloodhound is the 
+			var movies = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),	// tokenize movie.Name
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				remote: {
+					url: '../api/movies?query=%QUERY',		// the user input will be put into $QUERY
+					wildcard: '%QUERY'
+				}
+			});
+			
+			$('#movie')
+				.typeahead({
+					minLength: 3,
+					highlight: true
+				},
+					{
+						name: 'movies',			//
+						display: 'name',			// will display customer.name in the suggestion list
+						source: movies			// the new Bloodhound object defined at the top.
+					})
+				.on("typeahead:select", function (e, movie) {
+					vm.moviesIds.push(movie.id);
+
+					$("#movies").append(`<li>${movie.name}</li>`);
+					// clear the content of the text box after the selection.
+					// we need to use typeahead isntead of the jquery .val() function since typeahead is
+					// now controling the text box value:
+					$("#movie").typeahead("val", "");				
+
+					
+				});
+
+		});
+	</script>
+}
 
 
