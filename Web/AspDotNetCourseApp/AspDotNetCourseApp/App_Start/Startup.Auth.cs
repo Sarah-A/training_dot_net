@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using AspDotNetCourseApp.Models;
+using System.Configuration;
 
 namespace AspDotNetCourseApp
 {
@@ -55,8 +56,10 @@ namespace AspDotNetCourseApp
             //   consumerSecret: "");
 
             app.UseFacebookAuthentication(
-               appId: "12345",
-               appSecret: "abcdef");
+               appId: ConfigurationManager.AppSettings["FacebookAppId"],
+               appSecret: ConfigurationManager.AppSettings["FacebookAppSecret"]
+
+            );
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
