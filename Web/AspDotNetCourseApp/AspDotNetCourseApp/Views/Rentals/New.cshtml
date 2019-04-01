@@ -6,15 +6,19 @@
 
 <h2>New Rental Form</h2>
 
-<form>
+<form id="newRental">
 	<div class="form-group">
 		<label for="customer">Customer</label>
-		<input type="text" id="customer" value="" class="form-control" />
+		<div class="tt-container">
+			<input type="text" id="customer" value="" class="form-control" />			
+		</div>
 	</div>
 
 	<div class="form-group">
 		<label for="movie">Movie</label>
-		<input type="text" id="movie" value="" class="form-control" />
+		<div class="tt-container">
+			<input type="text" id="movie" value="" class="form-control" />
+		</div>
 	</div>
 
 	<ul id="movies" class="list-group"></ul>
@@ -28,7 +32,7 @@
 	<script>
 		$(document).ready(function () {
 			var vm = {
-				moviesIds: []
+				movieIds: []
 			};
 
 			// Bloodhound is the 
@@ -36,7 +40,7 @@
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),	// tokenize customer.Name
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				remote: {
-					url: '../api/customers?query=%QUERY',		// the user input will be put into $QUERY
+					url: '../api/customers?filterForRenting=%QUERY',		// the user input will be put into $QUERY
 					wildcard: '%QUERY'					
 				}
 			});
@@ -61,7 +65,7 @@
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),	// tokenize movie.Name
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				remote: {
-					url: '../api/movies?query=%QUERY',		// the user input will be put into $QUERY
+					url: '../api/movies?filterForRenting=%QUERY',		// the user input will be put into $QUERY
 					wildcard: '%QUERY'
 				}
 			});
@@ -77,9 +81,9 @@
 						source: movies			// the new Bloodhound object defined at the top.
 					})
 				.on("typeahead:select", function (e, movie) {
-					vm.moviesIds.push(movie.id);
+					vm.movieIds.push(movie.id);
 
-					$("#movies").append(`<li>${movie.name}</li>`);
+					$("#movies").append(`<li class="list-group-item">${movie.name}</li>`);
 					// clear the content of the text box after the selection.
 					// we need to use typeahead isntead of the jquery .val() function since typeahead is
 					// now controling the text box value:
@@ -87,6 +91,22 @@
 
 					
 				});
+
+			$("#newRental").submit(function (e) {
+				e.preventDefault();			// to prevent the form sending a regular HTML submit
+
+				$.ajax({
+					url: "/api/Rentals",
+					method: "POST",
+					data: vm
+				})
+				.done(function () {
+					console.log("New Rental Created!!");
+					})
+				.fail(function () {
+					console.log("Failed");
+				});
+			});
 
 		});
 	</script>

@@ -25,19 +25,27 @@ namespace AspDotNetCourseApp.Controllers.Api
             _context.Dispose();
             base.Dispose(disposing);    
         }
-           
+
 
         // GET /api/customers
-        public IHttpActionResult GetCustomers()
-        {            
-            var customersInDbDtos = _context.Customers
-                                    .Include( m => m.MembershipType )
-                                    .ToList()
+        public IHttpActionResult GetCustomers(string filterForRenting = null)
+        {
+
+            var customersInDb = _context.Customers
+                                .Include(m => m.MembershipType);
+
+            if (!String.IsNullOrWhiteSpace(filterForRenting))
+            {
+                customersInDb = customersInDb.Where(c => c.Name.Contains(filterForRenting));
+            }
+
+            var customersDtos = customersInDb.
+                                    ToList()
                                     .Select(Mapper.Map<CustomerDto>);
 
-            return Ok(customersInDbDtos);
+            return Ok(customersDtos);
         }
-                
+
 
         // GET /api/customers/{id}
         public IHttpActionResult GetCustomer(int id)

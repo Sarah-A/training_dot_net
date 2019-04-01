@@ -32,12 +32,21 @@ namespace AspDotNetCourseApp.Controllers.Api
         }
 
         // GET api/movies
-        public IHttpActionResult GetMovies()
+        public IHttpActionResult GetMovies(string filterForRenting = null)
         {
-            var moviesDtos = _context.Movies
-                                .Include(m => m.Genre)
+            var moviesInDb = _context.Movies
+                                     .Include(m => m.Genre);
+
+            if (!String.IsNullOrWhiteSpace(filterForRenting))
+            {
+                moviesInDb = moviesInDb.Where(m => (m.Name.Contains(filterForRenting) &&
+                                       m.NumberAvailable > 0));
+            }
+
+            var moviesDtos = moviesInDb
                                 .ToList()
                                 .Select(Mapper.Map<MovieDto>);
+
             return Ok(moviesDtos);
         }
 
