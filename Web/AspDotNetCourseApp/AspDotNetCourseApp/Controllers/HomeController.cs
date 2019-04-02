@@ -13,6 +13,7 @@ namespace AspDotNetCourseApp.Controllers
             return View();
         }
 
+        // Home/About
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
