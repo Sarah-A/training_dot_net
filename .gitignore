@@ -344,3 +344,6 @@ healthchecksdb
 MigrationBackup/
 /Web/AutomatedTests_Course
 *.bak
+/Web/AspDotNetCourseApp/ReleaseDeploy
+/Web/AspDotNetCourseApp/TestingDeploy
+/Web/AspDotNetCourseApp/AspDotNetCourseApp/AppSecretSettings.config
