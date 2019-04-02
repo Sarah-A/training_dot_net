@@ -21,6 +21,11 @@ namespace AspDotNetCourseApp.Controllers
             return View();
         }
 
+        public ActionResult TestUnexpectedException()
+        {
+            throw new Exception("This is my custom exception test");
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
