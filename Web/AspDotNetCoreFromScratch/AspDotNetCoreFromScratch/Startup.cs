@@ -21,15 +21,8 @@ namespace AspDotNetCoreFromScratch
         // This is where we configure what to do when the app receive web requrests.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            // allow the service to serve static files from the 
+            app.UseStaticFiles();
         }
     }
 }
