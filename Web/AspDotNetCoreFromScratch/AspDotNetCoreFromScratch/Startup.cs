@@ -19,9 +19,15 @@ namespace AspDotNetCoreFromScratch
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         // This is where we configure what to do when the app receive web requrests.
+        // NOTE: The ORDER in this function MATTERS! This is exactly the order in which the different middlewares will be called 
+        // whenever the app receive a new request!!
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // allow the service to serve static files from the 
+            // If the path in the URL doesn't contain a file's name, it will search for default file names e.g. index.html
+            // in the path and update the path to include them so localhost will become localhost/index.html
+            app.UseDefaultFiles();
+
+            // allow the service to serve static files from the wwwroot folder according to the received URL
             app.UseStaticFiles();
         }
     }
