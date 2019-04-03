@@ -13,6 +13,11 @@ namespace AspDotNetCoreFromScratch.Controllers
         {
             return View();
         }
+
+        public IActionResult TestUnhandledException()
+        {
+            throw new Exception("I threw this... HaHaHa");
+        }
         
     }
 }
