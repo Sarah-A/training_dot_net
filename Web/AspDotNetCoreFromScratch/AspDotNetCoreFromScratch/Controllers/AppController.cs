@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspDotNetCoreFromScratch.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,12 @@ namespace AspDotNetCoreFromScratch.Controllers
         [HttpGet("Contact")]
         public IActionResult Contact()
         {
+            return View();
+        }
+
+        [HttpPost("Contact")]
+        public IActionResult Contact(ContactViewModel viewModel)
+        {            
             return View();
         }
                 
