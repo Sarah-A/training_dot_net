@@ -22,6 +22,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         {
             return View();
         }
+                
 
         public IActionResult About()
         {
