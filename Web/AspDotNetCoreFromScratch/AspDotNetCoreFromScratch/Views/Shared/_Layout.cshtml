@@ -2,16 +2,31 @@
 <html>
 <head>
 	<title>Dutch Treat - @ViewBag.Title</title>
+	<link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
-	<header>Welcome to Dutch Treat</header>
+	<header><h1>Welcome to Dutch Treat</h1></header>
+	<nav class="navbar">
+		<ul class="navbar-nav">
+			<li class="navbar-item">
+				<a class="nav-link" href="/App/Index">Home</a>
+			</li>
+			<li class="navbar-item">
+				<a class="nav-link" href="/App/Contact">Contact</a>
+			</li>
+			<li class="navbar-item">
+				<a class="nav-link" href="/App/About">About</a>
+			</li>
+		</ul>
+	</nav>
 	<section>
 		<h1>@ViewBag.Title</h1>
 		@RenderBody()
 	</section>
 	<footer>Copyright 2019 Dutch Treat LLC</footer>
 	<script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="~/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="~/js/index.js"></script>
 </body>
 </html>

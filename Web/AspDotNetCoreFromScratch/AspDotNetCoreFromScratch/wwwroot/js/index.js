@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () { 
-	alert("Hello App!!");
-
+	
 	let $imgMain = $("#img-main");
 
 	$("#test-button").on("click", function () {
