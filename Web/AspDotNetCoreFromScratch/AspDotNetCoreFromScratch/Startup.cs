@@ -29,6 +29,9 @@ namespace AspDotNetCoreFromScratch
 
             // allow the service to serve static files from the wwwroot folder according to the received URL
             app.UseStaticFiles();
+
+            // allow service 
+            app.UseNodeModules(env);
         }
     }
 }
