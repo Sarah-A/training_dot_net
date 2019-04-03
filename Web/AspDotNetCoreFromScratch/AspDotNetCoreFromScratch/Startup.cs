@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AspDotNetCoreFromScratch
@@ -15,6 +16,7 @@ namespace AspDotNetCoreFromScratch
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -23,15 +25,19 @@ namespace AspDotNetCoreFromScratch
         // whenever the app receive a new request!!
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // If the path in the URL doesn't contain a file's name, it will search for default file names e.g. index.html
-            // in the path and update the path to include them so localhost will become localhost/index.html
-            app.UseDefaultFiles();
-
+           
             // allow the service to serve static files from the wwwroot folder according to the received URL
             app.UseStaticFiles();
 
-            // allow service 
+            // allow serving Node modules from node_modules directory. 
             app.UseNodeModules(env);
+
+            // will try to map the request to an MVC controller.
+            app.UseMvc( cfg => {
+                cfg.MapRoute(name: "Default",
+                             template: "/{controller}/{action}/{id?}",
+                             defaults: new { controller = "App", action = "Index" });
+            });
         }
     }
 }
