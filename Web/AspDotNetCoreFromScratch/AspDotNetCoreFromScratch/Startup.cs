@@ -25,10 +25,14 @@ namespace AspDotNetCoreFromScratch
         // whenever the app receive a new request!!
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if( env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 // display the full debug output page on unhandled exceptions: 
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
             }
            
             // allow the service to serve static files from the wwwroot folder according to the received URL
