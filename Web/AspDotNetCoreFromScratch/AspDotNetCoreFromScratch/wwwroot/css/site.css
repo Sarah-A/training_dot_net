@@ -1,4 +1,10 @@
-﻿.validation-summary-errors, 
+﻿
+.navbar-light {
+	background-color: #e3f2fd;
+}
+
+
+.validation-summary-errors,
 .field-validation-error {
 	color: red;
 }

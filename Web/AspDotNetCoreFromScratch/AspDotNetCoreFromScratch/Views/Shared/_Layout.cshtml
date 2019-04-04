@@ -6,20 +6,29 @@
 	<link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
-	<div class="container m-1">
-		<header><h1>Welcome to Dutch Treat</h1></header>
-		<nav class="navbar">
-			<ul class="navbar-nav">
-				<li class="navbar-item">
-					<a class="nav-link" asp-controller="App" asp-action="Index">Home</a>
-				</li>
-				<li class="navbar-item">
-					<a class="nav-link" asp-controller="App" asp-action="Contact">Contact</a>
-				</li>
-				<li class="navbar-item">
-					<a class="nav-link" asp-controller="App" asp-action="About">About</a>
-				</li>
-			</ul>
+	<div id="main-page" class="container-fluid">
+		<nav class="navbar navbar-light navbar-expand-md navbar-light px-0">
+			<div>
+				<h1 class="nabar-brand ml-0">Dutch Treat</h1>
+			</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav mr-auto">
+					<li class="navbar-item">
+						<a class="nav-link" asp-controller="App" asp-action="Index">Home</a>
+					</li>					
+				</ul>
+				<ul class="navbar-nav">					
+					<li class="navbar-item">
+						<a class="nav-link" asp-controller="App" asp-action="Contact">Contact</a>
+					</li>
+					<li class="navbar-item">
+						<a class="nav-link" asp-controller="App" asp-action="About">About</a>
+					</li>
+				</ul>
+			</div>
 		</nav>
 		<section>
 			<h1>@ViewBag.Title</h1>
@@ -27,7 +36,7 @@
 		</section>
 		<footer>Copyright 2019 Dutch Treat LLC</footer>
 		<script src="~/node_modules/jquery/dist/jquery.min.js"></script>
-		<script src="~/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="~/js/index.js"></script>
 		@RenderSection("scripts",required: false)
 	</div>

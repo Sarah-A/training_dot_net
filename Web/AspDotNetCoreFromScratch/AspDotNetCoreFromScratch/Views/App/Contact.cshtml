@@ -10,13 +10,13 @@
 }
 
 <div class="m-3">
-	<form method="post" class="col-md-6" id="contact-form" >
+	<form method="post" class="col-md-6" id="contact-form">
 		<div asp-validation-summary="ModelOnly">
 			<p>Please fix the following errors:</p>
 		</div>
 		<div class="form-group">
 			<label asp-for="Name">Your Name:</label>
-			<input type="text" asp-for="Name" class="form-control"/>
+			<input type="text" asp-for="Name" class="form-control" />
 			<span asp-validation-for="Name"></span>
 		</div>
 		<div class="form-group">
@@ -34,7 +34,9 @@
 			<textarea class="form-control" asp-for="Message" rows="4"></textarea>
 			<span asp-validation-for="Message"></span>
 		</div>
-		<button type="submit" class="btn btn-primary">Send</button>
-		<div>@ViewBag.UserMessage</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Send</button>
+			<div class="text-success text-center">@ViewBag.UserMessage</div>
+		</div>
 	</form>
 </div>
