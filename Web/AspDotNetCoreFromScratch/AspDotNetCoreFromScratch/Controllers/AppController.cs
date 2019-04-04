@@ -1,4 +1,5 @@
-﻿using AspDotNetCoreFromScratch.ViewModels;
+﻿using AspDotNetCoreFromScratch.Services;
+using AspDotNetCoreFromScratch.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,13 @@ namespace AspDotNetCoreFromScratch.Controllers
 {
     public class AppController : Controller
     {
+        private readonly IMailService _mailService;
+
+        public AppController(IMailService mailService)
+        {
+            _mailService = mailService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -27,7 +35,14 @@ namespace AspDotNetCoreFromScratch.Controllers
 
         [HttpPost("Contact")]
         public IActionResult Contact(ContactViewModel viewModel)
-        {            
+        {
+            if (ModelState.IsValid)
+            {
+                _mailService.SendMessage(viewModel.Email, viewModel.Subject, viewModel.Message);
+                ViewBag.UserMessage = "Message Sent!";
+                ModelState.Clear();
+                
+            }
             return View();
         }
                 
