@@ -1,0 +1,5 @@
+{
+	"ConnectionStrings": {
+		"DutchConnection": "Server=(localdb)\\mssqllocaldb;Database=AspDotNetCoreFromScratch;Trusted_Connection=True;MultipleActiveResultSets=true"
+	}
+}

@@ -20,7 +20,21 @@ namespace AspDotNetCoreFromScratch
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            WebHost.CreateDefaultBuilder(args)                      // Creates a deafult configuration file that we can use to store our configurations
+                .ConfigureAppConfiguration(SetupConfiguration)      // Call our own SetupConfiguration function
                 .UseStartup<Startup>();
+
+        private static void SetupConfiguration(WebHostBuilderContext context, IConfigurationBuilder builder)
+        {
+            // Remove the default configuration options
+            builder.Sources.Clear();
+
+            // Create our new json-based configuratoin file.
+            // Make it reloadable on change so that we won't have to restart our app every time it changes.            
+            builder.AddJsonFile("config.json", false, true)
+                    .AddXmlFile("config.xml", true)
+                    .AddEnvironmentVariables();
+            
+        }
     }
 }
