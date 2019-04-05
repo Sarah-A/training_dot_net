@@ -1,5 +1,11 @@
 {
 	"ConnectionStrings": {
 		"DutchConnection": "Server=(localdb)\\mssqllocaldb;Database=AspDotNetCoreFromScratch;Trusted_Connection=True;MultipleActiveResultSets=true"
+	},
+	"Logging": {
+		"LogLevel": {
+			"Default": "Information",
+			"Microsoft": "Warning"
+		}
 	}
 }
