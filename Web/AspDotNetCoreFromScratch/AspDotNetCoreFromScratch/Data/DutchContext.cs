@@ -16,5 +16,17 @@ namespace AspDotNetCoreFromScratch.Data
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Order>().HasData(new Order {
+                Id = 1,
+                OrderDate = DateTime.Now,
+                OrderNumber = "12345"                
+            });
+        }
     }
 }
