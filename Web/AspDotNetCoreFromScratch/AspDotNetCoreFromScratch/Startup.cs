@@ -27,10 +27,14 @@ namespace AspDotNetCoreFromScratch
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // The AddDbContext actually creates a scoped service that exist for the life of
+            // the request:
             services.AddDbContext<DutchContext>( cfg =>
             {
                 cfg.UseSqlServer(_config.GetConnectionString("DutchConnection"));
             });
+
+            services.AddTransient<DutchSeeder>();
 
             services.AddTransient<IMailService, NullMailService>();
             services.AddMvc();
