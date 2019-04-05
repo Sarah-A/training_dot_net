@@ -1,4 +1,5 @@
-﻿using AspDotNetCoreFromScratch.Services;
+﻿using AspDotNetCoreFromScratch.Data;
+using AspDotNetCoreFromScratch.Services;
 using AspDotNetCoreFromScratch.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,10 +14,12 @@ namespace AspDotNetCoreFromScratch.Controllers
     public class AppController : Controller
     {
         private readonly IMailService _mailService;
+        private readonly DutchContext _context;
 
-        public AppController(IMailService mailService)
+        public AppController(IMailService mailService, DutchContext context)
         {
             _mailService = mailService;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -55,6 +58,15 @@ namespace AspDotNetCoreFromScratch.Controllers
         public IActionResult TestUnhandledException()
         {
             throw new Exception("I threw this... HaHaHa");
+        }
+
+        public IActionResult Shop()
+        {
+            var products = from p in _context.Products
+                           orderby p.Category
+                           select p;
+
+            return View(products.ToList());
         }
         
     }
