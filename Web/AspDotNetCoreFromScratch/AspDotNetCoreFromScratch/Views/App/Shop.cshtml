@@ -6,4 +6,23 @@
 
 <p>Count: @Model.Count()</p>
 
+<div class="row">
+	@foreach (var p in Model)
+	{
+		<div class="col-md-3 border p-1">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<img src="~/img/@(p.ArtId).jpg" alt="@p.Artist" class="img-fluid" />
+				</li>
+				<li class="list-group-item">Title: @p.Title</li>
+				<li class="list-group-item">Artist: @p.Artist</li>
+				<li class="list-group-item">Size: @p.Size</li>
+				<li class="list-group-item">Price: @p.Price</li>
+			</ul>
+
+
+		</div>
+	}
+</div>
+
 
