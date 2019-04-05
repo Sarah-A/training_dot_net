@@ -14,9 +14,9 @@ namespace AspDotNetCoreFromScratch.Controllers
     public class AppController : Controller
     {
         private readonly IMailService _mailService;
-        private readonly DutchContext _context;
+        private readonly IDutchRepository _context;
 
-        public AppController(IMailService mailService, DutchContext context)
+        public AppController(IMailService mailService, IDutchRepository context)
         {
             _mailService = mailService;
             _context = context;
@@ -62,11 +62,9 @@ namespace AspDotNetCoreFromScratch.Controllers
 
         public IActionResult Shop()
         {
-            var products = from p in _context.Products
-                           orderby p.Category
-                           select p;
+            var products = _context.GetProducts();
 
-            return View(products.ToList());
+            return View(products);
         }
         
     }
