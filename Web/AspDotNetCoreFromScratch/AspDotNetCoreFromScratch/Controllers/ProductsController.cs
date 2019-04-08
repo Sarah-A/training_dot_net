@@ -11,7 +11,9 @@ using System.Threading.Tasks;
 namespace AspDotNetCoreFromScratch.Controllers
 {
     [Route("api/[Controller]")]
-    public class ProductsController : Controller
+    [ApiController]
+    [Produces("application/json")]
+    public class ProductsController : ControllerBase
     {
         private readonly IDutchRepository _repository;
         private readonly ILogger<ProductsController> _logger;
@@ -23,7 +25,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public ActionResult<IEnumerable<Product>> Get()
         {
             var products = _repository.GetProducts();
             if (products != null)
