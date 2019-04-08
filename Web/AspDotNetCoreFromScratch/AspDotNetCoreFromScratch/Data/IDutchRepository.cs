@@ -10,5 +10,6 @@ namespace AspDotNetCoreFromScratch.Data
         bool SaveAll();
         IEnumerable<Order> GetOrders();
         Order GetOrderById(int id);
+        void AddEntity(Order model);
     }
 }

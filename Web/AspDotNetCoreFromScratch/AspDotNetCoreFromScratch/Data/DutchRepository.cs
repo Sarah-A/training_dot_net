@@ -89,5 +89,17 @@ namespace AspDotNetCoreFromScratch.Data
                 return null;
             }
         }
+
+        public void AddEntity(Order model)
+        {
+            try
+            {
+                _context.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to add new model: {ex}");
+            }
+        }
     }
 }

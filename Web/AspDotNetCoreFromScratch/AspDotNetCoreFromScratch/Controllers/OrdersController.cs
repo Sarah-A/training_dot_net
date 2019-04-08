@@ -53,6 +53,20 @@ namespace AspDotNetCoreFromScratch.Controllers
                 return NotFound();
             }
         }
+
+        [HttpPost]
+        public IActionResult Post([FromBody]Order model)
+        {
+            _repository.AddEntity(model);
+            if (_repository.SaveAll())
+            {
+                return Created($"/api/orders/{model.Id}", model);
+            }
+            else
+            {
+                return BadRequest("Failed to save new order.");
+            }
+        }
         
     }
 }
