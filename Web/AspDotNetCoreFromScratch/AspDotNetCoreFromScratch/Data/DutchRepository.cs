@@ -1,4 +1,5 @@
 ﻿using DutchTreat.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,22 @@ namespace AspDotNetCoreFromScratch.Data
             {
                 _logger.LogError($"Failed to get products: {ex}");
                 return null;
+            }
+        }
+
+        public IEnumerable<Order> GetOrders()
+        {
+            try
+            {
+                return _context.Orders
+                        .Include(o => o.Items)
+                        .ThenInclude(i => i.Product)
+                        .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get orders: {ex}");
+                return null;                
             }
         }
 

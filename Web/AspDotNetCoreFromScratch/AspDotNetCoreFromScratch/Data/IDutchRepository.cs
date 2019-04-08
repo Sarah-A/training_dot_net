@@ -8,5 +8,6 @@ namespace AspDotNetCoreFromScratch.Data
         IEnumerable<Product> GetProducts();
         IEnumerable<Product> GetProductsByCategory(string category);
         bool SaveAll();
+        IEnumerable<Order> GetOrders();
     }
 }
