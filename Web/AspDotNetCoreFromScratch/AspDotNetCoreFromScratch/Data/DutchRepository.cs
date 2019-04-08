@@ -72,5 +72,22 @@ namespace AspDotNetCoreFromScratch.Data
             return (_context.SaveChanges() > 0);
         }
 
+        public Order GetOrderById(int id)
+        {
+            try
+            { 
+                return _context.Orders
+                                .Include(o => o.Items)
+                                .ThenInclude(i => i.Product)
+                                .Where(o => o.Id == id)
+                                .FirstOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get order: {ex}");
+                return null;
+            }
+        }
     }
 }

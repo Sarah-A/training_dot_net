@@ -38,6 +38,21 @@ namespace AspDotNetCoreFromScratch.Controllers
                 return BadRequest("Failed to find orders");
             }
         }
+
+        [HttpGet("{id:int}")]
+        public ActionResult<Order> GetOrder(int id)
+        {
+            var order = _repository.GetOrderById(id);
+
+            if (order != null)
+            {
+                return Ok(order);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
         
     }
 }
