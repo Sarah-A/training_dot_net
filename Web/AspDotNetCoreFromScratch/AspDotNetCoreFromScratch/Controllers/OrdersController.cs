@@ -31,13 +31,13 @@ namespace AspDotNetCoreFromScratch.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Order>> Get()
+        public ActionResult<IEnumerable<OrderViewModel>> Get()
         {
             var orders = _repository.GetOrders();
 
             if (orders != null)
             {
-                return Ok(orders);
+                return Ok(_mapper.Map<IEnumerable<OrderViewModel>>(orders));
             }
             else
             {
@@ -46,13 +46,13 @@ namespace AspDotNetCoreFromScratch.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<Order> GetOrder(int id)
+        public ActionResult<OrderViewModel> GetOrder(int id)
         {
             var order = _repository.GetOrderById(id);
 
             if (order != null)
             {
-                return Ok(order);
+                return Ok(_mapper.Map<OrderViewModel>(order));
             }
             else
             {
@@ -61,7 +61,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostNewOrder([FromBody]OrderViewModel orderViewModel)
+        public ActionResult<OrderViewModel> PostNewOrder([FromBody]OrderViewModel orderViewModel)
         {
             if (!ModelState.IsValid)
             {
