@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AspDotNetCoreFromScratch.Data;
 using AspDotNetCoreFromScratch.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +35,8 @@ namespace AspDotNetCoreFromScratch
             {
                 cfg.UseSqlServer(_config.GetConnectionString("DutchConnection"));
             });
+
+            services.AddAutoMapper();
 
             services.AddTransient<DutchSeeder>();
 

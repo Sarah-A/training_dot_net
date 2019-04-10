@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using AspDotNetCoreFromScratch.Data;
 using Microsoft.Extensions.Logging;
 using DutchTreat.Data.Entities;
+using AutoMapper;
+using AspDotNetCoreFromScratch.ViewModels;
 
 namespace AspDotNetCoreFromScratch.Controllers
 {
@@ -16,11 +18,15 @@ namespace AspDotNetCoreFromScratch.Controllers
     public class OrdersController : Controller
     {
         private readonly IDutchRepository _repository;
+        private readonly IMapper _mapper;
         private readonly ILogger<OrdersController> _logger;
 
-        public OrdersController(IDutchRepository repository, ILogger<OrdersController> logger)
+        public OrdersController(IDutchRepository repository,
+                                IMapper mapper,
+                                ILogger<OrdersController> logger)
         {
             _repository = repository;
+            _mapper = mapper;
             _logger = logger;
         }
 
@@ -55,12 +61,25 @@ namespace AspDotNetCoreFromScratch.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]Order model)
+        public IActionResult PostNewOrder([FromBody]OrderViewModel orderViewModel)
         {
-            _repository.AddEntity(model);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid order details");
+            }
+
+            if (orderViewModel.OrderDate == null)
+            {
+                orderViewModel.OrderDate = DateTime.Now;
+            }
+
+            var newOrder = _mapper.Map<Order>(orderViewModel);
+
+            _repository.AddEntity(newOrder);
             if (_repository.SaveAll())
             {
-                return Created($"/api/orders/{model.Id}", model);
+                return Created($"/api/orders/{newOrder.Id}", 
+                                _mapper.Map<OrderViewModel>(newOrder));
             }
             else
             {
