@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AspDotNetCoreFromScratch.ViewModels
@@ -11,5 +12,7 @@ namespace AspDotNetCoreFromScratch.ViewModels
 
         [Required]
         public string OrderNumber { get; set; }
+
+        public ICollection<OrderItemViewModel> Items { get; set; }
     }
 }
