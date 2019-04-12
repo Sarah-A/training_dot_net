@@ -101,5 +101,7 @@ namespace AspDotNetCoreFromScratch.Data
                 _logger.LogError($"Failed to add new model: {ex}");
             }
         }
+
+        
     }
 }
