@@ -5,7 +5,7 @@ namespace AspDotNetCoreFromScratch.Data
 {
     public interface IDutchRepository
     {
-        IEnumerable<Product> GetProducts();
+        IEnumerable<Product> GetAllProducts();
         IEnumerable<Product> GetProductsByCategory(string category);
         bool SaveAll();
         IEnumerable<Order> GetAllOrders(bool includeItems);

@@ -1,6 +1,7 @@
 ﻿using AspDotNetCoreFromScratch.Data;
 using AspDotNetCoreFromScratch.Services;
 using AspDotNetCoreFromScratch.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -60,9 +61,10 @@ namespace AspDotNetCoreFromScratch.Controllers
             throw new Exception("I threw this... HaHaHa");
         }
 
+        [Authorize]
         public IActionResult Shop()
         {
-            var products = _context.GetProducts();
+            var products = _context.GetAllProducts();
 
             return View(products);
         }

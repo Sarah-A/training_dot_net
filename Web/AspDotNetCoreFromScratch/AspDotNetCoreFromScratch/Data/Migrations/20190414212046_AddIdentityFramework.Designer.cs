@@ -4,14 +4,16 @@ using AspDotNetCoreFromScratch.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AspDotNetCoreFromScratch.Migrations
 {
     [DbContext(typeof(DutchContext))]
-    partial class DutchContextModelSnapshot : ModelSnapshot
+    [Migration("20190414212046_AddIdentityFramework")]
+    partial class AddIdentityFramework
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,11 +86,7 @@ namespace AspDotNetCoreFromScratch.Migrations
 
                     b.Property<string>("OrderNumber");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
 
@@ -96,7 +94,7 @@ namespace AspDotNetCoreFromScratch.Migrations
                         new
                         {
                             Id = 1,
-                            OrderDate = new DateTime(2019, 4, 15, 7, 23, 3, 215, DateTimeKind.Local).AddTicks(1274),
+                            OrderDate = new DateTime(2019, 4, 15, 7, 20, 46, 340, DateTimeKind.Local).AddTicks(4463),
                             OrderNumber = "12345"
                         });
                 });
@@ -265,13 +263,6 @@ namespace AspDotNetCoreFromScratch.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("DutchTreat.Data.Entities.Order", b =>
-                {
-                    b.HasOne("AspDotNetCoreFromScratch.Data.Entities.StoreUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("DutchTreat.Data.Entities.OrderItem", b =>

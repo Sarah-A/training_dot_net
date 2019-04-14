@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspDotNetCoreFromScratch.Data;
+using AspDotNetCoreFromScratch.Data.Entities;
 using AspDotNetCoreFromScratch.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +31,12 @@ namespace AspDotNetCoreFromScratch
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<StoreUser, IdentityRole>(cfg =>
+            {
+                cfg.User.RequireUniqueEmail = true;
+            })
+                .AddEntityFrameworkStores<DutchContext>();
+
             // The AddDbContext actually creates a scoped service that exist for the life of
             // the request:
             services.AddDbContext<DutchContext>( cfg =>
@@ -67,9 +75,12 @@ namespace AspDotNetCoreFromScratch
            
             // allow the service to serve static files from the wwwroot folder according to the received URL
             app.UseStaticFiles();
+            
 
             // allow serving Node modules from node_modules directory. 
             app.UseNodeModules(env);
+
+            app.UseAuthentication();
 
             // will try to map the request to an MVC controller. Using the same MapRoute as in tranditional ASP.Net application
             app.UseMvc( cfg => {

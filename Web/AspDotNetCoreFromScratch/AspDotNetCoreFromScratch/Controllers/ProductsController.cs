@@ -27,7 +27,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Product>> Get()
         {
-            var products = _repository.GetProducts();
+            var products = _repository.GetAllProducts();
             if (products != null)
             {
                 return Ok(products);

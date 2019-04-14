@@ -40,7 +40,7 @@ namespace AspDotNetCoreFromScratch
                 // so we need to make sure that we've added the DutchSeeder to the Startup.services
                 // so that is can find it there.
                 var seeder = scope.ServiceProvider.GetService<DutchSeeder>();
-                seeder.Seed();
+                seeder.SeedAsync().Wait();
             }
 
         }

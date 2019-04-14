@@ -20,7 +20,7 @@ namespace AspDotNetCoreFromScratch.Data
             _logger = logger;
         }
 
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<Product> GetAllProducts()
         {
             try
             {

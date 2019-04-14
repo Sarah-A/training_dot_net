@@ -1,5 +1,7 @@
-﻿using DutchTreat.Data.Entities;
+﻿using AspDotNetCoreFromScratch.Data.Entities;
+using DutchTreat.Data.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,17 +16,41 @@ namespace AspDotNetCoreFromScratch.Data
     {
         private readonly DutchContext _context;
         private readonly IHostingEnvironment _hosting;
+        private readonly UserManager<StoreUser> _userManager;
 
-        public DutchSeeder(DutchContext context, IHostingEnvironment hosting)
+        public DutchSeeder(DutchContext context, 
+                            IHostingEnvironment hosting,
+                            UserManager<StoreUser> userManager)
         {
             _context = context;
             _hosting = hosting;
+            _userManager = userManager;
         }
 
-        public void Seed()
+        public async Task SeedAsync()
         {
             // Make sure that the database exist before starting to seed it:
             _context.Database.EnsureCreated();
+
+            StoreUser user = await _userManager.FindByEmailAsync("admin.sarah@gmail.com");
+            if (user == null)
+            {
+                user = new StoreUser()
+                {
+                    FirstName = "Ad",
+                    LastName = "Min",
+                    Email = "admin.sarah@gmail.com",
+                    UserName = "admin.sarah@gmail.com"
+                };
+
+                var result = await _userManager.CreateAsync(user, "P@ssw0rd!");
+
+                if(result != IdentityResult.Success)
+                {
+                    throw new InvalidOperationException("Could not create default user in Seeder");
+                }
+            }
+
 
             if (!_context.Products.Any())
             {
@@ -46,6 +72,7 @@ namespace AspDotNetCoreFromScratch.Data
                 var order = _context.Orders.SingleOrDefault(o => o.Id == 1);
                 if (order != null)
                 {
+                    order.User = user;
                     order.Items = new List<OrderItem>()
                     {
                         new OrderItem()
@@ -53,6 +80,7 @@ namespace AspDotNetCoreFromScratch.Data
                             Product = products.First(),
                             Quantity = 5,
                             UnitPrice = products.First().Price
+
                         }
                     };
                 }
