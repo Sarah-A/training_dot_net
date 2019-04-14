@@ -51,14 +51,21 @@ namespace AspDotNetCoreFromScratch.Data
             }
         }
 
-        public IEnumerable<Order> GetOrders()
+        public IEnumerable<Order> GetAllOrders(bool includeItems)
         {
             try
             {
-                return _context.Orders
+                if (includeItems)
+                {
+                    return _context.Orders
                         .Include(o => o.Items)
                         .ThenInclude(i => i.Product)
                         .ToList();
+                }
+                else
+                {
+                    return _context.Orders.ToList();
+                }
             }
             catch (Exception ex)
             {

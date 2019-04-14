@@ -31,9 +31,9 @@ namespace AspDotNetCoreFromScratch.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<OrderViewModel>> Get()
+        public ActionResult<IEnumerable<OrderViewModel>> GetAllOrders(bool includeItems = true)
         {
-            var orders = _repository.GetOrders();
+            var orders = _repository.GetAllOrders(includeItems);
 
             if (orders != null)
             {

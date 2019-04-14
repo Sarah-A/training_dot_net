@@ -8,7 +8,7 @@ namespace AspDotNetCoreFromScratch.Data
         IEnumerable<Product> GetProducts();
         IEnumerable<Product> GetProductsByCategory(string category);
         bool SaveAll();
-        IEnumerable<Order> GetOrders();
+        IEnumerable<Order> GetAllOrders(bool includeItems);
         Order GetOrderById(int id);
         void AddEntity(Order model);
         
