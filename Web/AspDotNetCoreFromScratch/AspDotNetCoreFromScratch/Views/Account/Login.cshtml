@@ -12,10 +12,8 @@
 	<h2 class="text-center">@ViewBag.Title</h2>
 	<div class="row justify-content-center">
 		<div class="col-md-4">
-			<form>
-				<div asp-validation-summary="ModelOnly">
-					<p>Please fix the following errors:</p>
-				</div>
+			<form method="post">
+				<div asp-validation-summary="ModelOnly"></div>
 				<div class="form-group">
 					<label asp-for="UserName">User Name:</label>
 					<input type="text" asp-for="UserName" class="form-control" />
