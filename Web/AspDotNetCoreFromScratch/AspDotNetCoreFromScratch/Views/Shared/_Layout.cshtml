@@ -23,9 +23,12 @@
 						<a class="nav-link" asp-controller="App" asp-action="Shop">Shop</a>
 					</li>
 				</ul>
-				<ul class="navbar-nav">					
+				<ul class="navbar-nav">
 					<li class="navbar-item">
 						<a class="nav-link" asp-controller="App" asp-action="Contact">Contact</a>
+					</li>
+					<li class="navbar-item">
+						<a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
 					</li>
 					<li class="navbar-item">
 						<a class="nav-link" asp-controller="App" asp-action="About">About</a>
@@ -34,7 +37,6 @@
 			</div>
 		</nav>
 		<section>
-			<h1>@ViewBag.Title</h1>
 			@RenderBody()
 		</section>
 		<footer>Copyright 2019 Dutch Treat LLC</footer>
