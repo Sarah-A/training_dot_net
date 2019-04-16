@@ -126,6 +126,7 @@ namespace AspDotNetCoreFromScratch.Controllers
                             signingCredentials: credentials
                             );
 
+                        // serialize the token and add the expiration time:
                         var results = new
                         {
                             token = new JwtSecurityTokenHandler().WriteToken(token),

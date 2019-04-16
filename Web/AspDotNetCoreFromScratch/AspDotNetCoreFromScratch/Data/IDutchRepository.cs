@@ -9,6 +9,7 @@ namespace AspDotNetCoreFromScratch.Data
         IEnumerable<Product> GetProductsByCategory(string category);
         bool SaveAll();
         IEnumerable<Order> GetAllOrders(bool includeItems);
+        IEnumerable<Order> GetAllOrdersByUser(string userName, bool includeItems);
         Order GetOrderById(int id);
         void AddEntity(Order model);
         

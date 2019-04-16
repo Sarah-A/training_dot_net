@@ -51,20 +51,23 @@ namespace AspDotNetCoreFromScratch.Data
             }
         }
 
-        public IEnumerable<Order> GetAllOrders(bool includeItems)
+        public IEnumerable<Order> GetAllOrdersByUser(string userName, bool includeItems)
         {
             try
             {
                 if (includeItems)
                 {
                     return _context.Orders
+                        .Where(o => o.User.UserName == userName)                        
                         .Include(o => o.Items)
                         .ThenInclude(i => i.Product)
                         .ToList();
                 }
                 else
                 {
-                    return _context.Orders.ToList();
+                    return _context.Orders
+                        .Where(o => o.User.UserName == userName)
+                        .ToList();
                 }
             }
             catch (Exception ex)
@@ -106,6 +109,29 @@ namespace AspDotNetCoreFromScratch.Data
             catch (Exception ex)
             {
                 _logger.LogError($"Failed to add new model: {ex}");
+            }
+        }
+
+        public IEnumerable<Order> GetAllOrders(bool includeItems)
+        {
+            try
+            {
+                if (includeItems)
+                {
+                    return _context.Orders
+                        .Include(o => o.Items)
+                        .ThenInclude(i => i.Product)
+                        .ToList();
+                }
+                else
+                {
+                    return _context.Orders.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get orders: {ex}");
+                return null;
             }
         }
 

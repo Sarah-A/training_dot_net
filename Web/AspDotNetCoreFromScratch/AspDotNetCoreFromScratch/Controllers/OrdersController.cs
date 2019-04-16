@@ -34,9 +34,11 @@ namespace AspDotNetCoreFromScratch.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<OrderViewModel>> GetAllOrders(bool includeItems = true)
+        public ActionResult<IEnumerable<OrderViewModel>> GetAllOrdersByUser(bool includeItems = true)
         {
-            var orders = _repository.GetAllOrders(includeItems);
+            var userName = User.Identity.Name;
+
+            var orders = _repository.GetAllOrdersByUser(userName , includeItems);
 
             if (orders != null)
             {
