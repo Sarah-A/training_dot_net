@@ -1,6 +1,8 @@
 ﻿using AspDotNetCoreFromScratch.Data;
 using AspDotNetCoreFromScratch.ViewModels;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,6 +16,7 @@ namespace AspDotNetCoreFromScratch.Controllers
     [Route("api/orders/{orderid}/items")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
     public class OrderItemsController : Controller
     {
         private readonly IDutchRepository _repository;
@@ -32,7 +35,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         [HttpGet]
         public IActionResult GetItems(int orderId)
         {
-            var order = _repository.GetOrderById(orderId);
+            var order = _repository.GetOrderById(User.Identity.Name, orderId);
             if (order != null) return Ok(_mapper.Map<IEnumerable<OrderItemViewModel>>(order.Items));
             return NotFound();
         }
@@ -40,7 +43,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         [HttpGet("{itemId}")]
         public IActionResult GetItem(int orderId, int itemId)
         {
-            var order = _repository.GetOrderById(orderId);
+            var order = _repository.GetOrderById(User.Identity.Name, orderId);
             var item = order?.Items?.Where(i => i.Id == itemId).FirstOrDefault();
             if (item != null) return Ok(_mapper.Map<OrderItemViewModel>(item));
             return NotFound();

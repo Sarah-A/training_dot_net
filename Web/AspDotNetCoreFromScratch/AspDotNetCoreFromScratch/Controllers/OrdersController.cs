@@ -53,7 +53,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         [HttpGet("{id:int}")]
         public ActionResult<OrderViewModel> GetOrder(int id)
         {
-            var order = _repository.GetOrderById(id);
+            var order = _repository.GetOrderById(User.Identity.Name, id);
 
             if (order != null)
             {
