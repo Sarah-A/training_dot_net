@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AspDotNetCoreFromScratch.Data;
 using AspDotNetCoreFromScratch.Data.Entities;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AspDotNetCoreFromScratch
 {
@@ -31,11 +33,26 @@ namespace AspDotNetCoreFromScratch
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add Identity - by default support only cookie authentication:
             services.AddIdentity<StoreUser, IdentityRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;
             })
                 .AddEntityFrameworkStores<DutchContext>();
+
+            // Add support for JWT Tokens for the Web API interface:
+            services.AddAuthentication()
+                    .AddCookie()
+                    .AddJwtBearer( cfg =>
+                    {
+                        // configure the token validation with the same parameters used in the token creation:
+                        cfg.TokenValidationParameters = new TokenValidationParameters()
+                        {
+                            ValidIssuer = _config["Tokens:Issuer"],
+                            ValidAudience = _config["Tokens:Audience"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]))
+                        };
+                    });
 
             // The AddDbContext actually creates a scoped service that exist for the life of
             // the request:

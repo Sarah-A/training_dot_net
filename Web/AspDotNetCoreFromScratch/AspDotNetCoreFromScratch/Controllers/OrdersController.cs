@@ -9,12 +9,15 @@ using Microsoft.Extensions.Logging;
 using DutchTreat.Data.Entities;
 using AutoMapper;
 using AspDotNetCoreFromScratch.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace AspDotNetCoreFromScratch.Controllers
 {
     [Route("api/[Controller]")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
     public class OrdersController : Controller
     {
         private readonly IDutchRepository _repository;
