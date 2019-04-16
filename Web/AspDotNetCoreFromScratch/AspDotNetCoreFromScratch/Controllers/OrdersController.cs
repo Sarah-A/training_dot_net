@@ -11,6 +11,8 @@ using AutoMapper;
 using AspDotNetCoreFromScratch.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using AspDotNetCoreFromScratch.Data.Entities;
 
 namespace AspDotNetCoreFromScratch.Controllers
 {
@@ -22,14 +24,17 @@ namespace AspDotNetCoreFromScratch.Controllers
     {
         private readonly IDutchRepository _repository;
         private readonly IMapper _mapper;
+        private readonly UserManager<StoreUser> _userManager;
         private readonly ILogger<OrdersController> _logger;
 
         public OrdersController(IDutchRepository repository,
                                 IMapper mapper,
+                                UserManager<StoreUser> userManager,
                                 ILogger<OrdersController> logger)
         {
             _repository = repository;
             _mapper = mapper;
+            _userManager = userManager;
             _logger = logger;
         }
 
@@ -66,7 +71,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         }
 
         [HttpPost]
-        public ActionResult<OrderViewModel> PostNewOrder([FromBody]OrderViewModel orderViewModel)
+        public async Task<IActionResult> PostNewOrder([FromBody]OrderViewModel orderViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -80,6 +85,10 @@ namespace AspDotNetCoreFromScratch.Controllers
 
             var newOrder = _mapper.Map<Order>(orderViewModel);
 
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (currentUser == null) return BadRequest();
+            newOrder.User = currentUser;
+            
             _repository.AddEntity(newOrder);
             if (_repository.SaveAll())
             {
