@@ -24,16 +24,25 @@ export class DataService {
 	}
 
 	public addItemToOrder(newProduct: Product) {
-		
-		let item: OrderItem = new OrderItem();
 
-		item.id = newProduct.id;
-		item.productTitle = newProduct.title;
-		item.productSize = newProduct.size;
-		item.unitPrice = newProduct.price;
-		item.quantity = 1;
 
-		this.order.items.push(item);
+		let item: OrderItem = this.order.items.find(i => i.id == newProduct.id);
+
+		if (item) {
+			item.quantity++;
+		}
+		else {
+			item = new OrderItem();
+
+			item.id = newProduct.id;
+			item.productCategory = newProduct.category;
+			item.productTitle = newProduct.title;
+			item.productSize = newProduct.size;
+			item.unitPrice = newProduct.price;
+			item.quantity = 1;
+
+			this.order.items.push(item);
+		} 
 
 	}
 }
