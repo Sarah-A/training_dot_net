@@ -22,4 +22,8 @@ export class ProductList implements OnInit {
 				}
 			});
 	}
+
+	buyProduct(product: Product) {
+		this.data.addItemToOrder(product);
+	}
 }

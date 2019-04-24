@@ -10,7 +10,7 @@
 				<li class="list-group-item"><strong>Price:</strong> {{p.price | currency:"USD"}}</li>
 				<li class="list-group-item"><strong>Description:</strong> {{p.artDescription}}</li>
 			</ul>
-			<button id="buyButton" class="btn btn-success">Buy</button>
+			<button id="buyButton" class="btn btn-success" (click)="buyProduct(p)">Buy</button>
 		</div>
 	</div>
 </div>
