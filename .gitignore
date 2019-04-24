@@ -347,3 +347,6 @@ MigrationBackup/
 /Web/AspDotNetCourseApp/ReleaseDeploy
 /Web/AspDotNetCourseApp/TestingDeploy
 /Web/AspDotNetCourseApp/AspDotNetCourseApp/AppSecretSettings.config
+/Web/AspDotNetCoreFromScratch/AspDotNetCoreFromScratch/wwwroot/ts/*.js
+/Web/AspDotNetCoreFromScratch/AspDotNetCoreFromScratch/wwwroot/ts/*.js.map
+/Web/AspDotNetCoreFromScratch/AspDotNetCoreFromScratch/wwwroot/clientapp/dist
