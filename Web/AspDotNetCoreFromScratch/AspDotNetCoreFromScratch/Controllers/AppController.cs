@@ -64,9 +64,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         [Authorize]
         public IActionResult Shop()
         {
-            var products = _context.GetAllProducts();
-
-            return View(products);
+            return View();
         }
         
     }
