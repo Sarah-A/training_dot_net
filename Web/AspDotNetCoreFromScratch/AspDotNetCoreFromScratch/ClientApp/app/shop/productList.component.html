@@ -1,15 +1,17 @@
 ﻿<div class="row">
-	<div class="col-md-4 p-2"  *ngFor="let p of products">
-		<ul class="list-group mb-2">
-			<li class="list-group-item">
-				<img src="/img/{{p.artId}}.jpg" alt="{{p.artist}}" class="img-fluid" />
-			</li>
-			<li class="list-group-item">{{p.title}} - {{p.size}}</li>
-			<li class="list-group-item">Artist: {{p.artist}}</li>
-			<li class="list-group-item">Price: {{p.price | currency:"USD"}}</li>
-			<li class="list-group-item">Description: {{p.artDescription}}</li>
-		</ul>
-		<button id="buyButton" class="btn btn-success">Buy</button>
+	<div class="col-md-4 p-2" *ngFor="let p of products">
+		<div class="product-info">
+			<ul class="product-info-details list-group mb-2">
+				<li class="list-group-item">
+					<img src="/img/{{p.artId}}.jpg" alt="{{p.artist}}" class="img-fluid" />
+					<p><strong>{{p.title}}</strong> - {{p.size}}</p>
+				</li>
+				<li class="list-group-item"><strong>Artist:</strong> {{p.artist}}</li>
+				<li class="list-group-item"><strong>Price:</strong> {{p.price | currency:"USD"}}</li>
+				<li class="list-group-item"><strong>Description:</strong> {{p.artDescription}}</li>
+			</ul>
+			<button id="buyButton" class="btn btn-success">Buy</button>
+		</div>
 	</div>
 </div>
 
