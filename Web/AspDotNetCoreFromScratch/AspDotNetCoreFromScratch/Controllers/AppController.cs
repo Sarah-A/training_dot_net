@@ -60,8 +60,7 @@ namespace AspDotNetCoreFromScratch.Controllers
         {
             throw new Exception("I threw this... HaHaHa");
         }
-
-        [Authorize]
+                
         public IActionResult Shop()
         {
             return View();

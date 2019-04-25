@@ -10,6 +10,9 @@ import { Order, OrderItem } from './order';
 export class DataService {
 	constructor(private http: HttpClient) { }
 
+	private token: string = "";
+	private tokenExpiration: Date;
+
 	public products: Product[] = [];
 	public order: Order = new Order();
 
@@ -22,6 +25,15 @@ export class DataService {
 			})
 			);
 	}
+
+	public get loginRequired(): boolean {
+		return (this.token.length == 0 || this.tokenExpiration < new Date());
+	}
+
+	//public login(username: string, password: string) {
+	//	//let result = this.http.put("/api/createToken","{username: ....}"
+	//}
+
 
 	public addItemToOrder(newProduct: Product) {
 
