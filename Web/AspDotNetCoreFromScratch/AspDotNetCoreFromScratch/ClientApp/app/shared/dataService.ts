@@ -30,9 +30,18 @@ export class DataService {
 		return (this.token.length == 0 || this.tokenExpiration < new Date());
 	}
 
-	//public login(username: string, password: string) {
-	//	//let result = this.http.put("/api/createToken","{username: ....}"
-	//}
+	login(credentials : any): Observable<boolean> {
+		return this.http
+			.post("/account/createToken", credentials)
+			.pipe(
+				map((data: any) => {
+					this.token = data.token;
+					this.tokenExpiration = data.tokenExpiration;
+					return true;
+				}));
+	}
+
+	
 
 
 	public addItemToOrder(newProduct: Product) {
