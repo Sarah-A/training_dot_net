@@ -47,19 +47,15 @@ export class DataService {
 	public addItemToOrder(newProduct: Product) {
 
 
-		let item: OrderItem = this.order.items.find(i => i.id == newProduct.id);
-
-		// TODO: The following will always return false since I had to remove the item.id field.
-		// in order to avoid exception on the DB when adding a new order. Need to fix.
+		let item: OrderItem = this.order.items.find(i => i.productId == newProduct.id);
+				
 		if (item) {
 			item.quantity++;
 		}
 		else {
 			item = new OrderItem();
 
-			// If we set the item.id - we will get a server DB exception when we try to create the new order since we can't insert an Id into the DB
-			//item.id = newProduct.id;
-
+			item.productId = newProduct.id;
 			item.productCategory = newProduct.category;
 			item.productTitle = newProduct.title;
 			item.productSize = newProduct.size;

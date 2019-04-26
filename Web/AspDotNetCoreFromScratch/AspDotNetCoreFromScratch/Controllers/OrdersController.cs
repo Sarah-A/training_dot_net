@@ -89,7 +89,7 @@ namespace AspDotNetCoreFromScratch.Controllers
             if (currentUser == null) return BadRequest();
             newOrder.User = currentUser;
             
-            _repository.AddEntity(newOrder);
+            _repository.AddOrder(newOrder);
             if (_repository.SaveAll())
             {
                 return Created($"/api/orders/{newOrder.Id}", 
