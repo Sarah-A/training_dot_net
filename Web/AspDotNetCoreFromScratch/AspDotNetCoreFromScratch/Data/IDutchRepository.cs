@@ -12,6 +12,8 @@ namespace AspDotNetCoreFromScratch.Data
         IEnumerable<Order> GetAllOrdersByUser(string userName, bool includeItems);
         Order GetOrderById(string userName, int id);
         void AddEntity(Order model);
-        
+        void AddOrder(Order model);
+
+
     }
 }

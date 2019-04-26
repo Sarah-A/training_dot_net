@@ -112,6 +112,17 @@ namespace AspDotNetCoreFromScratch.Data
             }
         }
 
+        public void AddOrder(Order newOrder)
+        {            
+                        // replace all items in the new order with the correct items from the database:
+			// otherwise, we will receive an exception trying to insert duplicate Prodcuts.
+            foreach (var item in newOrder.Items) {
+                item.Product = _context.Products.Find(item.Product.Id);
+            }
+
+            AddEntity(newOrder);
+        }
+
         public IEnumerable<Order> GetAllOrders(bool includeItems)
         {
             try
