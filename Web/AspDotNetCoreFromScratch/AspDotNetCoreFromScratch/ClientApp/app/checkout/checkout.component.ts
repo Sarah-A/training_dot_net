@@ -1,7 +1,11 @@
 ﻿import { Component } from "@angular/core";
+import { DataService } from '../shared/dataService';
 
 @Component({
 	selector: "checkout",
-	templateUrl: "./checkout.component.html"
+  templateUrl: "checkout.component.html",
+  styleUrls: ['checkout.component.css']
 })
-export class Checkout { }
+export class Checkout {
+	constructor(private data: DataService) { }
+}

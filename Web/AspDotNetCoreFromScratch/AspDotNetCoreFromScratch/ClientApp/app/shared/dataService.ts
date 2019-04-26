@@ -59,6 +59,7 @@ export class DataService {
 			item.productCategory = newProduct.category;
 			item.productTitle = newProduct.title;
 			item.productSize = newProduct.size;
+			item.productArtId = newProduct.artId;
 			item.unitPrice = newProduct.price;
 			item.quantity = 1;
 
