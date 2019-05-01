@@ -278,10 +278,6 @@
     <Compile Include="Migrations\201903180321371_UpdateNameInMembershipTypes.Designer.cs">
       <DependentUpon>201903180321371_UpdateNameInMembershipTypes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903190025009_FixBrokenMigration.cs" />
-    <Compile Include="Migrations\201903190025009_FixBrokenMigration.Designer.cs">
-      <DependentUpon>201903190025009_FixBrokenMigration.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201903190035008_AddBirthdateToCustomer.cs" />
     <Compile Include="Migrations\201903190035008_AddBirthdateToCustomer.Designer.cs">
       <DependentUpon>201903190035008_AddBirthdateToCustomer.cs</DependentUpon>
@@ -724,9 +720,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903180321371_UpdateNameInMembershipTypes.resx">
       <DependentUpon>201903180321371_UpdateNameInMembershipTypes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903190025009_FixBrokenMigration.resx">
-      <DependentUpon>201903190025009_FixBrokenMigration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903190035008_AddBirthdateToCustomer.resx">
       <DependentUpon>201903190035008_AddBirthdateToCustomer.cs</DependentUpon>
