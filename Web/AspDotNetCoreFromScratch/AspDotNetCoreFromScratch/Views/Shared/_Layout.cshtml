@@ -2,8 +2,13 @@
 <html>
 <head>
 	<title>Dutch Treat - @ViewBag.Title</title>
-	<link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="~/css/site.css" rel="stylesheet" />
+	<environment names="Development">
+		<link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />		
+	</environment>
+	<environment names="Staging,Production">
+		<link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+	</environment>
+		<link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
 	<div id="main-page" class="container-fluid">
@@ -47,10 +52,22 @@
 			@RenderBody()
 		</section>
 		<footer>Copyright 2019 Dutch Treat LLC</footer>
-		<script src="~/node_modules/jquery/dist/jquery.min.js"></script>
-		<script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="~/js/index.js"></script>
-		@RenderSection("scripts",required: false)
+		<environment names="Development">
+			<script src="~/node_modules/jquery/dist/jquery.js"></script>
+			<script src="~/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+			<script src="~/js/index.js"></script>
+		</environment>
+		<environment names="Staging,Production">
+			<script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+					asp-fallback-src="~/node_modules/jquery/dist/jquery.min.js"
+					asp-fallback-test="window.jQuery"></script>
+			<script src="//ajax.aspnetcdn.com/ajax/bootstrap/4.3.1/bootstrap.min.js"
+					asp-fallback-src="~/node_modules/bootstrap/dist/js/bootstrap.min.js"
+					asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"></script>
+			<script src="~/dist/dutchtreat.min.js" asp-append-version="true"></script>
+		</environment>
+
+		@RenderSection("scripts", required: false)
 	</div>
 </body>
 </html>
