@@ -32,15 +32,15 @@ namespace AspDotNetCoreFromScratch.Data
             // Make sure that the database exist before starting to seed it:
             _context.Database.EnsureCreated();
 
-            StoreUser user = await _userManager.FindByEmailAsync("admin.sarah@gmail.com");
+            StoreUser user = await _userManager.FindByEmailAsync("user@example.com");
             if (user == null)
             {
                 user = new StoreUser()
                 {
-                    FirstName = "Ad",
-                    LastName = "Min",
-                    Email = "admin.sarah@gmail.com",
-                    UserName = "admin.sarah@gmail.com"
+                    FirstName = "User",
+                    LastName = "Exampler",
+                    Email = "user@example.com",
+                    UserName = "user@example.com"
                 };
 
                 var result = await _userManager.CreateAsync(user, "P@ssw0rd!");

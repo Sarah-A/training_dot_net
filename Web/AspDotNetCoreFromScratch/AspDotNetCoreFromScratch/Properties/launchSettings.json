@@ -12,7 +12,7 @@
       "commandName": "IISExpress",
       "environmentVariables": {
         "Key": "Value",
-        "ASPNETCORE_ENVIRONMENT": "Production"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "AspDotNetCoreFromScratch": {
