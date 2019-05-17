@@ -48,6 +48,26 @@ namespace UT_LanguageSandbox
             num.ExecuteOperations(operations);
             Assert.AreEqual(81.0, num.value);
 
+            operations = MathUtilities.Square;
+            operations += MathUtilities.SquareRoot;
+            operations += MathUtilities.AdvanceNumber;
+
+            num.ExecuteOperations(operations);
+            Assert.AreEqual(82.0, num.value);
+
+
+        }
+
+        [Test]
+        public void Should_AllowUsingBuiltInDelegates()
+        {
+            // Note: this code will not work with var
+            Func<double,double> myDelegate = MathUtilities.Square;
+            myDelegate += MathUtilities.SquareRoot;
+            myDelegate += MathUtilities.AdvanceNumber;
+
+            var result = myDelegate(5);
+            Assert.AreEqual(6.0, result);
         }
     }
    

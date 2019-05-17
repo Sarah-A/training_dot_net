@@ -10,11 +10,11 @@ namespace CSLanguageSandbox
     {
 
         
-        public async Task<int> TestAsyncWithAwait(int delayInSeconds)
+        public async Task<int> TestAwaitAtStart(int delayInSeconds)
         {
             var endWait = await SimulateAsynchMethodAsync(delayInSeconds);
             var startWait = DateTime.Now;            
-
+                        
             return (int)(endWait - startWait).TotalSeconds;
         }
 

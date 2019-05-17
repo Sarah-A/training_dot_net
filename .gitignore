@@ -350,3 +350,4 @@ MigrationBackup/
 /Web/AspDotNetCoreFromScratch/AspDotNetCoreFromScratch/wwwroot/ts/*.js
 /Web/AspDotNetCoreFromScratch/AspDotNetCoreFromScratch/wwwroot/ts/*.js.map
 /Web/AspDotNetCoreFromScratch/AspDotNetCoreFromScratch/wwwroot/clientapp/dist
+/Web/AspDotNetCoreFromScratch/AspDotNetCoreFromScratch/wwwroot/dist

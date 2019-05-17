@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UT_Static.cs" />
     <Compile Include="UT_AbstractClass.cs" />
     <Compile Include="UT_BoxingPerformance.cs" />
     <Compile Include="UT_Operators.cs" />
