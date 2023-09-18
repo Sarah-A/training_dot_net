@@ -20,9 +20,19 @@ public class SuperRatePercentageTestFixture
     [TestCase("0%", 0)]
     [TestCase("50%", 0.5)]
     [TestCase("25.5%", 0.255)]
-    public void SuperRatePercentage_ValidFormat_ShouldThrowExceptionReturnExpectedPercentage(string superRateInput, decimal expectedPercentage)
+    public void SuperRatePercentage_ValidFormat_ShouldReturnExpectedValue(string superRateInput, decimal expectedPercentage)
     {
         var percentage = new SuperRatePercentage(superRateInput);
         percentage.Value.Should().Be(expectedPercentage);
+    }
+    
+    
+    [TestCase(5004, 475)]
+    public void SuperCalculator_ShouldReturnExpectedValue(int income, int expectedSuper)
+    {
+        var superCalculator = new SuperRatePercentage("9.5%");
+        
+        superCalculator.CalculateSuper((RoundedPositiveInt)income)
+            .Should().BeEquivalentTo((RoundedPositiveInt)expectedSuper);
     }
 }

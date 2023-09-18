@@ -20,7 +20,7 @@ public class PayPeriodTestFixture
     [TestCase("1 march - 31 march", 1)]
     [TestCase("16 April - 30 April", 0.5)]
     [TestCase("16 April - 18 April", 0.1)]
-    public void PayPeriod_ValidFormat_ShouldReturnExpectedPeriod(string payPeriodInput, decimal expectedPeriodInMonths)
+    public void GetPeriodInMonths_ValidFormat_ShouldReturnExpectedPeriod(string payPeriodInput, decimal expectedPeriodInMonths)
     {
         var payPeriod = new PayPeriod(payPeriodInput);
         payPeriod.GetPeriodInMonths().Should().Be(expectedPeriodInMonths);

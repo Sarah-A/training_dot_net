@@ -28,4 +28,9 @@ public class SuperRatePercentage
 
         Value = superRate / 100;
     }
+    
+    public RoundedPositiveInt CalculateSuper(RoundedPositiveInt grossMonthlyIncome)
+    {
+        return new RoundedPositiveInt((decimal)grossMonthlyIncome.Value * Value);
+    }
 }
