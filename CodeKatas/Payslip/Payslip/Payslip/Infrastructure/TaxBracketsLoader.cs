@@ -5,6 +5,7 @@ using Payslip.Types;
 
 namespace Payslip.Infrastructure;
 
+// TODO: add an interface so we can support different types of Loaders (e.g. csv/db etc)
 public static class TaxBracketsLoader
 {
     public static List<TaxBracket> LoadTaxBrackets(string filePath)

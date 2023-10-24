@@ -48,4 +48,12 @@ Ryan Chen,01 March – 31 March,10000,2696,7304,1000
 ## Future Improvements:
 - [ ] Get income tax table from a file instead of hard coding
 - [ ] Get income tax table from ATO automatically 
-- [ ] 
+- [ ] Refactoring:
+    - [ ] Move methods out of TaxBracket and into TaxBracketProcessor - to deperate the domain object from the business logic (DDD)?
+
+## Design
+
+Used:
+- unit tests
+- DTOs to map between the data read from the csv files and the domain data
+- tiny types to enforce the validity of the data. For example: in `PayPeriod` - the translation from string to DateTimes happens in the costructor and throws an exception if the validation tests fail.
