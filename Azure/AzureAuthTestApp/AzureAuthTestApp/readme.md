@@ -2,6 +2,7 @@
 
 - Added Authentication (OIDC) and Authorization (OAuth 2.0) through Identity Providers (in Azure Portal: `app service -> Authentication -> Add Provider`) 
   - verified that I can access the app only using my authenticated user (ash..) and not using a different, unauthenticated user (sar...)
+- Added `Standard User` and `Application Admin` roles and assigned different users to each.
 - 
 
 
@@ -21,7 +22,26 @@ See [ASP.Net Razor Pages](https://learn.microsoft.com/en-us/aspnet/core/tutorial
 __To Redeploy app:__
 > az webapp up
 
+### Add Users:
+1. In `Azure Portal -> Microsoft Entra ID -> Users` - Add User
+2. Add the email and send an invitation. Once the user accept the invitation, they will be added to the users and then you'll be able to assign roles to them.
+
+### Add Groups:
+1. In `Azure Portal -> Microsoft Entra ID -> Groups` - Add Group
+2. Add a new group and choose users to add to it.
+Note: I can't use groups to define application roles since I'm on free account. Therefore, I'll use individual users for now.
+
+### Add App Roles:
+1. In `Microsoft Entra Admin Center -> Applications -> {application name} -> App roles`, add roles.
+2. I defined:
+  - Application Admin 
+  - Standard User 
+
+### Assign Roles to Users
+In `Azure Portal -> Microsoft Entra ID -> Enterprise applications -> Open application -> Users and Groups`:
+1. Add user/group
+2. Choose Role to assign to the user.
 
 __TODO:__
 - [ ] Add Google as identity provider
-- [ ] Add rol
+- [ ] Add roles and users.
