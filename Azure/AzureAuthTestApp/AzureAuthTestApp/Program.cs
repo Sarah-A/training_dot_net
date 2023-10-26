@@ -53,5 +53,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers();   // Require in order to support the Sign In/Out pages 
 
 app.Run();
