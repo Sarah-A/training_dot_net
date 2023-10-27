@@ -6,7 +6,14 @@
 - Added `Standard User` and `Application Admin` roles and assigned different users to each.
   - Verified that only the Admin can access the `Admin` page. 
 - Added UI interface to support Sign In/Out
-
+- Wired up Autofac so that I can inject the configuration into controllers and use parameters in secrets.json
+- Set up a blob storage account, added a "Read only" role to it and assigned it to my app, using Azure Portal (`{My storage account -> IAM -> Add Role Assignment -> Storage Blob Data Reader -> User, group or service principal -> application name` - see [instructions](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal)
+  - Uploaded an image to it (manually through the Portal)
+  - Verified that I can access and download the image using the connection string (copied from `{my storage account} -> Access keys`)
+- Created a new Service Principal for my app (on Azure Side: `Entra ID -> App registrations -> {my app} -> Certificates & secrets -> add new client secret`)
+- Used the Service Principal to get a userDelegatedKey in order to get a Shared Access Signature (SAS) will limited permissions and shorter expiry time to download the image.
+  - Note: this allows me to remove the usage of the connection string which is not secure because it doesn't have an expiration time and doesn't require any additional permissions to access the resource (so will compromise the resource if exposed)
+  - Verified that the image still downloads correctly. 
 
 See [ASP.Net Razor Pages](https://learn.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-7.0&tabs=visual-studio) for general structure of the code.
 

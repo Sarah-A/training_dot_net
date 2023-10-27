@@ -25,15 +25,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin">Admin</a>
-                        </li>
+                        @if (User.IsInRole("AppRoles.Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin">Admin</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <span class="navbar-text text-dark">Hello @User.Identity?.Name! @(User.IsInRole("AppRoles.Admin")? "(Admin)" : "(User)") .</span>
+                                <span class="navbar-text text-dark">Hello @User.Identity?.Name ! @(User.IsInRole("AppRoles.Admin")? "(Admin)" : "(User)") </span>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Sign Out</a>
