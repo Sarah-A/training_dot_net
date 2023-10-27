@@ -7,4 +7,24 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Hello, world! The time on the server is @DateTime.Now</p>
+    <button id="loadImageBtn">Get Image from Blob</button>
+    <img id="blobImage" style="display: none;" alt="Image from blob" />
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#loadImageBtn").click( function () {
+            $.get('@Url.Page("Index", "ImageFromBlob")', function (data) {
+                if(data.success) {
+                    $("#loadImageBtn").hide();
+                    $("#blobImage").attr("src", "data:image/png;base64," + data.imageData).show();
+                 }
+                 else {
+                    alert("Failed to load image"); 
+                 }
+                });
+            });
+        });   
+</script>

@@ -1,3 +1,5 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -33,6 +35,14 @@ builder.Services.AddRazorPages()
     // Add default UI pages for sign in, sign out etc. This also add the nice error message if I try to access 
     // a page I'm not authorised for (e.g. "Access Denied" instead of some generic http not found error)
     .AddMicrosoftIdentityUI();
+
+// Add Autofac for DI:
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Host.ConfigureContainer<ContainerBuilder>(bld =>
+{
+    bld.RegisterInstance(configuration).As<IConfiguration>();
+});
 
 var app = builder.Build();
 
