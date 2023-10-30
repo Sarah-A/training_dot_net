@@ -14,13 +14,11 @@ var configuration = builder.Configuration;
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     // Use Azure AD as the identity provider, using the parameters defined in appsettings.json to communicate
     // with the Azure AD instance:
-    .AddMicrosoftIdentityWebApp(configuration.GetSection("AzureAd"));   
+    .AddMicrosoftIdentityWebApp(configuration.GetSection("AzureAd"))
+    // To support getting user delegation key using user's token acquisition:
+    .EnableTokenAcquisitionToCallDownstreamApi(new string[] { "user.read" })
+    .AddInMemoryTokenCaches();
 
-// // Enable support for web API and Razor pages in my app: 
-// builder.Services.AddControllersWithViews()
-//     // refresh pages after changing the razor pages immediately, without needing a restart
-//     .AddRazorRuntimeCompilation();
-    
 // Enable and user Razor pages:
 builder.Services.AddRazorPages()
     // Add authentication policy and require users to be authenticated to use the app (for all pages)

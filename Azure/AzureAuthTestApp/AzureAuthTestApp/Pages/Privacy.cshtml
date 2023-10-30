@@ -2,13 +2,6 @@
 @model PrivacyModel
 @{
     ViewData["Title"] = "Privacy Policy";
-    Console.WriteLine($"user: {User.Identity.Name}");
-    foreach (var claim in User.Claims)
-    {
-        Console.WriteLine($"claim: {claim.Value}");
-        Console.WriteLine(claim.ToString());
-
-    }
 }
 <h1>@ViewData["Title"]</h1>
 

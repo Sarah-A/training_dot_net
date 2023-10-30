@@ -1,10 +1,12 @@
 ﻿using Azure;
+using Azure.Core;
 using Azure.Identity;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Identity.Web;
 
 namespace aspnetcoreapp.Pages;
 
@@ -12,11 +14,13 @@ public class IndexModel : PageModel
 {
     private readonly IConfiguration _configuration;
     private readonly ILogger<IndexModel> _logger;
+    private readonly ITokenAcquisition _tokenAcquisition;
 
-    public IndexModel(IConfiguration configuration, ILogger<IndexModel> logger)
+    public IndexModel(IConfiguration configuration, ILogger<IndexModel> logger, ITokenAcquisition tokenAcquisition)
     {
         _configuration = configuration;
         _logger = logger;
+        _tokenAcquisition = tokenAcquisition;
     }
 
     public void OnGet()
@@ -29,7 +33,11 @@ public class IndexModel : PageModel
         const String accountName = "sarahrg4491storage";
         const String storageAccountName = $"https://{accountName}.blob.core.windows.net";
         
-        var userDelegationKey = await GetDelegationKeyUsingServicePrincipal(storageAccountName);
+        // Experiment with different types of permissions for getting the image from the blob storage account: 
+        //var userDelegationKey = await GetDelegationKeyUsingServicePrincipal(storageAccountName);
+        var userDelegationKey = await GetUserDelegationKeyUsingDefaultCredentials(storageAccountName);
+        //var userDelegationKey = await GetUserDelegationKeyUsingUserCredentials(storageAccountName);
+        
         var imageSasUri = GetSasUriUsingDelegationKey(userDelegationKey, accountName, storageAccountName);
         var blobClientSas = new BlobClient(imageSasUri);
         
@@ -59,6 +67,46 @@ public class IndexModel : PageModel
         }
     }
 
+    private async Task<Response<UserDelegationKey>> GetUserDelegationKeyUsingDefaultCredentials(string storageAccountName)
+    {
+        // using DefaultAzureCredential() - will get Azure to automatically try different types of credentials 
+        // (ServicePrincipal, Managed Identity etc) until it finds one that works and use it:  
+       var blobServiceClient = new BlobServiceClient(new Uri(storageAccountName), new DefaultAzureCredential());
+        
+        // Get a user delegation key for the Blob service that's valid for 2 hours.
+        // This call takes a lot of time (~15 seconds). We probably want to run this in the background in advance to allow
+        // more time for it to finish before we actually need the key.
+        var userDelegationKey =  await blobServiceClient.GetUserDelegationKeyAsync(DateTimeOffset.UtcNow,
+            DateTimeOffset.UtcNow.AddMinutes(30));
+        
+        return userDelegationKey;
+    }
+    
+    
+    // NOTE: this method currently doesn't work - I need to fix the caching to check if the token is not caches, to
+    // get it before continuing. Also need to set up the cachign method in program.cs.
+    private async Task<Response<UserDelegationKey>> GetUserDelegationKeyUsingUserCredentials(string storageAccountName)
+    {
+        const string scope = "https://storage.azure.com/user_impersonation";
+        string userAccessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { scope });
+        
+        // Here, you'll have to know or estimate the expiration of your token.
+        var tokenCredential = new StaticTokenCredential(userAccessToken, DateTimeOffset.UtcNow.AddHours(1));
+ 
+        // using DefaultAzureCredential() - will get Azure to automatically try different types of credentials 
+        // (ServicePrincipal, Managed Identity etc) until it finds one that works and use it:  
+        var blobServiceClient = new BlobServiceClient(new Uri(storageAccountName), tokenCredential);
+        
+        // Get a user delegation key for the Blob service that's valid for 2 hours.
+        // This call takes a lot of time (~15 seconds). We probably want to run this in the background in advance to allow
+        // more time for it to finish before we actually need the key.
+        var userDelegationKey =  await blobServiceClient.GetUserDelegationKeyAsync(DateTimeOffset.UtcNow,
+            DateTimeOffset.UtcNow.AddMinutes(30));
+        
+        return userDelegationKey;
+    }
+    
+    
     // Use the application's Service Principal to request and return a delegation key for this application
     // Note: this is the 1st step, to see how to use Service Principal to get access to the Storage Blob.
     // The next step will be to get a delegation key specific for each user.
@@ -98,5 +146,25 @@ public class IndexModel : PageModel
         };
 
         return blobUriBuilder.ToUri();
+    }
+}
+
+public class StaticTokenCredential : TokenCredential
+{
+    private readonly AccessToken _token;
+
+    public StaticTokenCredential(string token, DateTimeOffset expiresOn)
+    {
+        _token = new AccessToken(token, expiresOn);
+    }
+
+    public override AccessToken GetToken(TokenRequestContext requestContext, CancellationToken cancellationToken)
+    {
+        return _token;
+    }
+
+    public override ValueTask<AccessToken> GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+    {
+        return new ValueTask<AccessToken>(_token);
     }
 }
