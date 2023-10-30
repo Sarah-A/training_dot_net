@@ -30,7 +30,7 @@ __To Redeploy app:__
 > az webapp up
 
 ### Add Identity Providers
-1. In Azure Portal, find your `app -> Authentication -> Add Identity Provider`
+1. In `Azure Portal`, find your `app -> Authentication -> Add Identity Provider`
 2. Enter your application's Client Id and Secret Id (see your application in Azure Portal -> Certificates and Secrets to see them) 
 
 ### Add Users:
