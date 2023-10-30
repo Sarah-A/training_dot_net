@@ -14,6 +14,9 @@
 - Used the Service Principal to get a userDelegatedKey in order to get a Shared Access Signature (SAS) will limited permissions and shorter expiry time to download the image.
   - Note: this allows me to remove the usage of the connection string which is not secure because it doesn't have an expiration time and doesn't require any additional permissions to access the resource (so will compromise the resource if exposed)
   - Verified that the image still downloads correctly. 
+- Used DefaultAzureCredential() to have Azure automatically try different types of credentials (e.g. ServicePrincipal, Managed Identity etc) until it finds one that works and use it.
+  - Verified that this works when I remove the ServicePrincipal secret.
+  - Drawback: this still uses the applicaiton credentials rather then the user-specific credentials for getting the image blob. I didn't have time to change the implementation to use user-specific delegation keys to resolve this issue.
 
 See [ASP.Net Razor Pages](https://learn.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-7.0&tabs=visual-studio) for general structure of the code.
 
@@ -49,9 +52,3 @@ Note: I can't use groups to define application roles since I'm on free account. 
 In `Azure Portal -> Microsoft Entra ID -> Enterprise applications -> Open application -> Users and Groups`:
 1. Add user/group
 2. Choose Role to assign to the user.
-
-
-
-__TODO:__
-- [ ] Add Google as identity provider
-- [ ] Add roles and users.
