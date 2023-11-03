@@ -7,24 +7,42 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Hello, world! The time on the server is @DateTime.Now</p>
-    <button id="loadImageBtn">Get Image from Blob</button>
-    <img id="blobImage" style="display: none;" alt="Image from blob" />
+    <p>
+        <button id="loadImageFromBackendBtn">Get Image from Blob - Using Backend</button>
+        <img id="blobImageFromBackend" style="display: none;" alt="Image from blob" />
+    </p>
+    <p>
+        <button id="loadImageFromFrontendBtn">Get Image from Blob - Using SAS URI in Front End</button>
+        <img id="blobImageFromFrontend" style="display: none;" alt="Image with sas uri" />
+    </p>
 </div>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#loadImageBtn").click( function () {
+        $("#loadImageFromBackendBtn").click( function () {
             $.get('@Url.Page("Index", "ImageFromBlob")', function (data) {
                 if(data.success) {
-                    $("#loadImageBtn").hide();
-                    $("#blobImage").attr("src", "data:image/png;base64," + data.imageData).show();
-                 }
-                 else {
+                    $("#loadImageFromBackendBtn").hide();
+                    $("#blobImageFromBackend").attr("src", "data:image/png;base64," + data.imageData).show();
+                }
+                else {
                     alert("Failed to load image"); 
-                 }
-                });
+                }
             });
-        });   
+        });
+        $("#loadImageFromFrontendBtn").click( function () {
+            $.get('@Url.Page("Index", "ImageSasUriFromBlob")', function (data) {
+                if(data.success) {
+                    $("#loadImageFromFrontendBtn").hide();
+                    $("#blobImageFromFrontend").attr("src", data.imageSasUri).show();
+                }
+                else {
+                    alert("Failed to load image"); 
+                }
+            });
+        });        
+    }); 
+    
 </script>

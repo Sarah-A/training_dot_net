@@ -44,6 +44,21 @@ public class IndexModel : PageModel
         return await DownloadAndReturnImageResult(blobClientSas);
 
     }
+    
+    public async Task<IActionResult> OnGetImageSasUriFromBlob()
+    {
+        const String accountName = "sarahrg4491storage";
+        const String storageAccountName = $"https://{accountName}.blob.core.windows.net";
+        
+        // Experiment with different types of permissions for getting the image from the blob storage account: 
+        //var userDelegationKey = await GetDelegationKeyUsingServicePrincipal(storageAccountName);
+        var userDelegationKey = await GetUserDelegationKeyUsingDefaultCredentials(storageAccountName);
+        //var userDelegationKey = await GetUserDelegationKeyUsingUserCredentials(storageAccountName);
+        
+        var imageSasUri = GetSasUriUsingDelegationKey(userDelegationKey, accountName, storageAccountName);
+
+        return new JsonResult(new {success = true, imageSasUri});
+    }
 
     private static async Task<IActionResult> DownloadAndReturnImageResult(BlobClient blobClientSas)
     {
