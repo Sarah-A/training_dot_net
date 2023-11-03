@@ -1,4 +1,5 @@
 # Azure Authentication and Authorization Test ASP.Net Razor Web App
+See [AzureAuthTestApp Demo](https://github.com/Sarah-A/training_dot_net/blob/master/Azure/AzureAuthTestApp/AzureAuthTestApp.mp4) for a demo of how the application works (very rough first time recorded demo 😅).
 
 - Added Authentication (OIDC) and Authorization (OAuth 2.0) through Identity Providers
   - Added both Microsoft and GitHub as identity providers 
@@ -17,6 +18,8 @@
 - Used DefaultAzureCredential() to have Azure automatically try different types of credentials (e.g. ServicePrincipal, Managed Identity etc) until it finds one that works and use it.
   - Verified that this works when I remove the ServicePrincipal secret.
   - Drawback: this still uses the applicaiton credentials rather then the user-specific credentials for getting the image blob. I didn't have time to change the implementation to use user-specific delegation keys to resolve this issue.
+- Added an option to get the SAS URI from the backend and download the image directly from the front end in order to improve performance.
+  - Note: this option maintains the security since the returned SAS URI is __only for the specific file with read only permissions__. Additionally, the SAS URI is time-limited to reduce risk.  
 
 See [ASP.Net Razor Pages](https://learn.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-7.0&tabs=visual-studio) for general structure of the code.
 
