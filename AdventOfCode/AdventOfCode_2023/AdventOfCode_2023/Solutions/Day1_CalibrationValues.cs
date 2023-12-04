@@ -2,7 +2,7 @@ namespace AdventOfCode2023;
 
 public class Day1_CalibrationValues
 {
-    public int Calculate(string filePath)
+    public int Calculate_Q1(string filePath)
     {
         var totalValue = 0;
         using (var reader = new StreamReader(filePath))
